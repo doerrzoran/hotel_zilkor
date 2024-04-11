@@ -1,0 +1,33 @@
+@mixin background_image (){
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed; 
+    background-size: cover; 
+};
+
+@mixin mobile {
+    @media (max-width: $breakpoint-sm) {
+      @content;
+    }
+  }
+
+  // Mixin for tablet screens (from breakpoint-md to breakpoint-lg)
+  @mixin medium {
+    @media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+      @content;
+    }
+  }
+  
+  // Mixin for tablet screens (from breakpoint-md to breakpoint-lg)
+  @mixin tablet {
+    @media (min-width: $breakpoint-md) and (max-width: $breakpoint-lg) {
+      @content;
+    }
+  }
+  
+  // Mixin for desktop screens (from breakpoint-lg and above)
+  @mixin desktop {
+    @media (min-width: $breakpoint-lg) {
+      @content;
+    }
+  }

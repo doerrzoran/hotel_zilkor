@@ -1,0 +1,10 @@
+body {
+    background-color: $background-color;
+    background-image: url('#{$background-image}');
+    @include background_image;  
+    #root{
+        margin: 0;
+        padding: 0;
+    }
+   
+}
