@@ -7,9 +7,9 @@ export default function Layout(props) {
         <>
             <Header/>
             <main className="content">
-                {/* {
+                {
                     content
-                } */}
+                }
             </main>
             {/* <Footer/> */}
         </>

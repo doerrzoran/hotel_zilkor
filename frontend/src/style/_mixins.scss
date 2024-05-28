@@ -5,6 +5,11 @@
     background-size: cover; 
 };
 
+
+
+
+
+
 @mixin mobile {
     @media (max-width: $breakpoint-sm) {
       @content;

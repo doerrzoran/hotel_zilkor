@@ -1,17 +1,24 @@
 body {
     background-color: $background-color;
     background-image: url('#{$background-image}');
-    @include background_image;  
+    @include background_image;
+    @font-face {
+        font-family: 'Garamond';
+        src: url($base-font-family) format('opentype');
+      }
+    font-family: garamond, serif;  
     #root{
         margin: 0;
         padding: 0;
     }
     header{
+        position: fixed;
         width: 100%;
         justify-content: center; 
         margin: 0;
-        position: relative;
+        position: absolute ;
         align-items: center;
+        font-weight: bold;
         .logo {
             border-radius: 50%; 
             overflow: hidden;
@@ -23,6 +30,10 @@ body {
             margin-top: 2%;
             width: 2rem; 
             height: 2rem;
+            &:hover .connect{
+                display:block
+            }
+            
         }
         .menuIcon{
             position: absolute; 
@@ -30,8 +41,35 @@ body {
             
         }
     }
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: calc(150vh); 
+        box-sizing: border-box;
+        }
 
+    h1, header h2, header h3, header h4, header h5, header h6 {
+    margin: 0;
+    padding: 0;
+    }
 
+    h1{
+        text-align: center;
+    }
     
 }
 
+
+
+.connect{
+    display: none;
+}
+
+#dropdownIcon:hover{
+    background-color: aliceblue;
+    .connect{
+        display:flex
+    }
+} 

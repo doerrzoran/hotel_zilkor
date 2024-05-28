@@ -7,16 +7,23 @@ export default function Header() {
     return(
         <>
         <header>
-            <img className='logo' src={logo} alt="logo of Zilkor" />
-            <img className='accountIcon' src={account} alt="logo of Zilkor" />
+            <div id='logo'>
+                <img className='logo' src={logo} alt="logo of Zilkor" />
+            </div>
+            <div id='dropdownIcon'>
+                <img className='accountIcon' src={account} alt="logo of Zilkor" />
+                <div className='connect'>
+                    <button>connection</button>
+                </div>
+            </div>
             <div id='dropdownMenue'>
-            <img className='menuIcon' src={menu} alt="icone dropdown menue" />
-            <nav className='navDesktop'>
-                <a href="">acceuil</a>
-                <a href="">reserver une chambre</a>
-                <a href="">à propos de nous</a>
-                <a href="">contacts</a>
-            </nav>
+                <img className='menuIcon' src={menu} alt="icone dropdown menue" />
+                <nav className='navDesktop'>
+                    <a href="">acceuil</a>
+                    <a href="">reserver une chambre</a>
+                    <a href="">à propos de nous</a>
+                    <a href="">contacts</a>
+                </nav>
             </div>
         </header>   
         </>

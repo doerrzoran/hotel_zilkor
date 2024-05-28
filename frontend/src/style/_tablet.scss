@@ -19,8 +19,16 @@
             .menuIcon{
                 display: none;
             }
-            .accountIcon{
-                
+            #dropdownIcon {
+                position: fixed;
+                top: 0;
+                right: 0;
+            }
+            
+            #dropdownIcon img {
+                width: 30px; 
+                height: auto;
+                margin: 10px; 
             }
         }
        
@@ -37,4 +45,9 @@
         padding: 0 15% 0 15%;
         background-color: $color-primary;
     }
+
+    h1{
+        font-size: 1.4rem;
+    }
+    
 }
