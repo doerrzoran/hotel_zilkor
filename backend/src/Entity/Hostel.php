@@ -27,6 +27,15 @@ class Hostel
     #[ORM\OneToMany(targetEntity: Room::class, mappedBy: 'hostel', orphanRemoval: true)]
     private Collection $rooms;
 
+    #[ORM\Column(length: 255)]
+    private ?string $city = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $country = null;
+
+    #[ORM\Column]
+    private ?int $numberOfRooms = null;
+
     public function __construct()
     {
         $this->rooms = new ArrayCollection();
@@ -87,6 +96,42 @@ class Hostel
                 $room->setHostel(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): static
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): static
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getNumberOfRooms(): ?int
+    {
+        return $this->numberOfRooms;
+    }
+
+    public function setNumberOfRooms(int $numberOfRooms): static
+    {
+        $this->numberOfRooms = $numberOfRooms;
 
         return $this;
     }
