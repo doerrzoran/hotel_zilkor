@@ -17,7 +17,7 @@ class Room
 
     #[ORM\ManyToOne(inversedBy: 'rooms')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?hostel $hostel = null;
+    private ?Hostel $hostel = null;
 
     #[ORM\Column]
     private ?int $roomNumber = null;
@@ -47,12 +47,12 @@ class Room
         return $this->id;
     }
 
-    public function getHostel(): ?hostel
+    public function getHostel(): ?Hostel
     {
         return $this->hostel;
     }
 
-    public function setHostel(?hostel $hostel): static
+    public function setHostel(?Hostel $hostel): static
     {
         $this->hostel = $hostel;
 

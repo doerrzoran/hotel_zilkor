@@ -19,7 +19,7 @@ class Hostel
     private ?string $location = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?user $manager = null;
+    private ?User $manager = null;
 
     /**
      * @var Collection<int, Room>
@@ -58,12 +58,12 @@ class Hostel
         return $this;
     }
 
-    public function getManager(): ?user
+    public function getManager(): ?User
     {
         return $this->manager;
     }
 
-    public function setManager(?user $manager): static
+    public function setManager(?User $manager): static
     {
         $this->manager = $manager;
 
