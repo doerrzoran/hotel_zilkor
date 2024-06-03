@@ -1,10 +1,10 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { useMemo, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useMemo } from 'react'
+
 import './App.css'
 import Layout from './components/Layout';
 import Home from './components/pages/Home';
+import Rooms from './components/backoffice/Rooms';
 
 function App() {
   const router = useMemo(() => {
@@ -12,7 +12,11 @@ function App() {
       {
         path: '',
         element: <Layout content =  {<Home/>} />
-      }
+      },
+      {
+        path: 'backoffice/rooms',
+        element: <Rooms/>
+      },
     ])
   }, [])
 
