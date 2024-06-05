@@ -7,23 +7,35 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager): Response
-    {
+    #[Route('/register', name: 'app_register', methods: ['POST'], options: ['csrf_protection' => false])]
+    public function register(
+        Request $request,
+        UserPasswordHasherInterface $userPasswordHasher,
+        EntityManagerInterface $entityManager,
+        SerializerInterface $serializer
+    ): JsonResponse {
+        $jsonData = json_decode($request->getContent(), true);
+
+        if (empty($jsonData)) {
+            return $this->json(['message' => 'Invalid JSON data'], 400);
+        }
+
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
+        $form = $this->createForm(RegistrationFormType::class, $user,  array('csrf_protection' => false));
+
+        // Submit the JSON data to the form
+        $form->submit($jsonData);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
+            // Encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -44,14 +56,17 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // do anything else you need here, like send an email
+            // Serialize the User object to JSON
+            $jsonUser = $serializer->serialize($user, 'json', [
+                'groups' => ['user_details'],
+            ]);
 
-            return $security->login($user, 'form_login', 'main');
+            return new JsonResponse($jsonUser, 201, [], true);
         }
 
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form,
-        ]);
+        // If the form is not valid, return the errors as JSON
+        $errors = $this->getFormErrors($form);
+        return new JsonResponse($errors, 400);
     }
 
     private function extractUsernameFromEmail(string $email): string
@@ -59,5 +74,15 @@ class RegistrationController extends AbstractController
         // Get the first part of the email before the @ symbol
         $parts = explode('@', $email);
         return $parts[0];
+    }
+
+    private function getFormErrors(\Symfony\Component\Form\Form $form): array
+    {
+        $errors = [];
+        foreach ($form->getErrors(true, true) as $error) {
+            $errors[$error->getOrigin()->getName()][] = $error->getMessage();
+        }
+
+        return $errors;
     }
 }

@@ -25,7 +25,7 @@ export default function Rooms() {
                                         <h3> {room.roomNumber}</h3>
                                         <p>Capacité: {room.capacity}</p>
                                         <p>Nuombre de lits: {room.numberOfBed}</p>
-                                        <p>Statu: {room.isAvailable ? 'libre' : 'Occupié'}</p>
+                                        <p>Statu: {room.isAvailable ? 'libre' : 'occupé'}</p>
                                     </div>
                                 ))}
                             </div>

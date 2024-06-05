@@ -5,6 +5,8 @@ import './App.css'
 import Layout from './components/Layout';
 import Home from './components/pages/Home';
 import Rooms from './components/backoffice/Rooms';
+import CreateAccount from './components/pages/divers/CreateAccount';
+import Login from './components/pages/divers/Login';
 
 function App() {
   const router = useMemo(() => {
@@ -16,6 +18,14 @@ function App() {
       {
         path: 'backoffice/rooms',
         element: <Rooms/>
+      },
+      {
+        path: 'new/account',
+        element: <CreateAccount/>
+      },
+      {
+        path: 'login',
+        element: <Login/>
       },
     ])
   }, [])
