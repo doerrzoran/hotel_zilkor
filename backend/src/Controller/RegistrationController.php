@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register', methods: ['POST'], options: ['csrf_protection' => false])]
+    #[Route('/register', name: 'app_register', methods: ['POST'])]
     public function register(
         Request $request,
         UserPasswordHasherInterface $userPasswordHasher,

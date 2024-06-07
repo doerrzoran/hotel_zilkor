@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { usePostRegisterMutation } from '../../../slices/ApiSlice';
 
 export default function CreateAccount() {

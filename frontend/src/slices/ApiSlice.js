@@ -28,11 +28,14 @@ export const ApiSlice = createApi({
                 body,
             })
         }),
-        getLogin: builder.query({
-            query : () => ({
-                url: '/login',
+        postLogin: builder.mutation({
+            query : (body) => ({
+                url: '/api/login_check',
+                method: 'POST',
+                body,
             })
         }),
+        
     })
 })
 
@@ -40,5 +43,5 @@ export const {
     useGetRoomsQuery,
     useGetRegisterQuery,
     usePostRegisterMutation,
-    useGetLoginQuery
+    usePostLoginMutation
 } = ApiSlice
