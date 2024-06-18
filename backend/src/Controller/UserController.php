@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Security;
 
 class UserController extends AbstractController
 {
-    #[Route('/api/me', name: 'api_get_user', methods: ['GET'])]
+    #[Route(path: '/api/me', name: 'api_get_user')]
     public function getUserInfo(): JsonResponse
     {
         $user = $this->getUser();
