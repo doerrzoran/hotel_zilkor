@@ -1,47 +1,64 @@
-
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
+// Create a base query function with the ability to include headers
+const baseQuery = fetchBaseQuery({
+    baseUrl: 'https://127.0.0.1:8000',
+    prepareHeaders: (headers) => {
+        const token = localStorage.getItem('jwtToken'); // Get the token from local storage
+        if (token) {
+            headers.set('Authorization', `Bearer ${token}`);
+        }
+        return headers;
+    }
+})
 
 export const ApiSlice = createApi({
     reducerPath: 'Api',
-    baseQuery: fetchBaseQuery({ baseUrl: 'https://127.0.0.1:8000'}),
-    endpoints: (builder) =>({
-        getHome : builder.query({
-            query : () => ({
+    baseQuery,
+    endpoints: (builder) => ({
+        getHome: builder.query({
+            query: () => ({
                 url: '',
             })
         }),
-        getRooms : builder.query({
-            query : () => ({
+        getRooms: builder.query({
+            query: () => ({
                 url: '/rooms',
             })
         }),
         getRegister: builder.query({
-            query : () => ({
+            query: () => ({
                 url: '/register',
             })
         }),
         postRegister: builder.mutation({
-            query : (body) => ({
+            query: (body) => ({
                 url: '/register',
                 method: 'POST',
                 body,
             })
         }),
         postLogin: builder.mutation({
-            query : (body) => ({
+            query: (body) => ({
                 url: '/api/login_check',
                 method: 'POST',
                 body,
             })
         }),
-        
+        getMe: builder.query({
+            query: () => ({
+                url: '/api/me',
+            })
+        })
     })
 })
 
+// Export hooks for usage in functional components, which are auto-generated based on the defined endpoints
 export const {
+    useGetHomeQuery,
     useGetRoomsQuery,
     useGetRegisterQuery,
     usePostRegisterMutation,
-    usePostLoginMutation
-} = ApiSlice
+    usePostLoginMutation,
+    useGetMeQuery
+} = ApiSlice;

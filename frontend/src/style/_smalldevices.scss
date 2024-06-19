@@ -19,6 +19,13 @@
             width: 70px; 
             height: 50px;
         }
+
+        .Login{
+            p{ 
+
+                display: none;
+            }
+        }
         
         .menuIcon{
             width: 50px; 
@@ -27,7 +34,6 @@
             cursor: pointer;
             padding-bottom: 10px; 
         }
-        
 
         .navDesktop {
             display: none; 
@@ -70,3 +76,4 @@
     }
     
 }
+

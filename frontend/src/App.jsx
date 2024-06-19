@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import './App.css'
 import Layout from './components/Layout';
@@ -8,7 +8,10 @@ import Rooms from './components/backoffice/Rooms';
 import CreateAccount from './components/pages/divers/CreateAccount';
 import Login from './components/pages/divers/Login';
 
+
+
 function App() {
+ 
   const router = useMemo(() => {
     return createBrowserRouter([
       {
@@ -32,8 +35,8 @@ function App() {
 
   return (
     <>
-     <RouterProvider router={router}/>
-     
+
+        <RouterProvider router={router} />
     </>
   )
 }
