@@ -1,21 +1,11 @@
 import logo from '../assets/images/logo_zilkor_3.png'
 import menu from '../assets/images/menu.png'
-import account from '../assets/images/bouton-de-compte-rond-avec-lutilisateur-a-linterieur.png'
-import { useContext, useEffect, useState } from 'react'
-import { UserContext } from '../context/UserContext'
-import { useGetMeQuery } from '../slices/ApiSlice'
+import Connect from './pages/divers/Connect'
+
 
 
 export default function Header() {
-    const { data, error, isLoading, refetch } = useGetMeQuery()
-    const [username, setUsername] = useState('connexion')
     
-
-    useEffect(()=>{
-        if (data && data.username) {          
-            setUsername(data.username)
-        }
-    }, [data])
 
     return(
         <>
@@ -23,14 +13,9 @@ export default function Header() {
             <div id='logo'>
                 <img className='logo' src={logo} alt="logo of Zilkor" />
             </div>
-            <button className='Login'>
-            <img className='accountIcon' src={account} alt="accountIcon" />
-            <p className='user'>
-                {
-                    isLoading ? '' : username
-                }
-            </p>
-            </button>
+            <div id='user'>
+                <Connect/>
+            </div>
             <div id='dropdownMenue'>
                 <img className='menuIcon' src={menu} alt="icone dropdown menue" />
                 <nav className='navDesktop'>

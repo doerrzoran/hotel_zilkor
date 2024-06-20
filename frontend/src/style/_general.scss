@@ -7,73 +7,82 @@ body {
         src: url($base-font-family) format('opentype');
     }
     font-family: garamond, serif;  
-}
-
-#root {
-    margin: 0;
-    padding: 0;
-}
-
-header {
-    position: fixed;
-    top: 0; 
-    width: 100%;
-    justify-content: center; 
-    margin: 0;
-    position: absolute;
-    align-items: center;
-    font-weight: bold;
-}
-
-header .logo {
-    border-radius: 50%; 
-    overflow: hidden;
-    margin-top: 0%;      
-}
-
-
-header .menuIcon {
-    position: absolute; 
-    left: 20px;
-}
-
-header .Login {
-    position: absolute;
-    top: 30px; 
-    right: 20px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+    #root {
+        margin: 0;
+        padding: 0;
+    }
     
-}
+    header {
+        position: fixed;
+        top: 0; 
+        width: 100%;
+        justify-content: center; 
+        margin: 0;
+        position: absolute;
+        align-items: center;
+        font-weight: bold;
+        .logo {
+      
+          border-radius: 50%; 
+            overflow: hidden;
+            margin-top: 0%;      
+        }
 
-header .Login img.accountIcon {
-    margin-right: 8px;
-    width: 2rem; 
-    height: 2rem;
-}
+        .menuIcon {
+            position: absolute; 
+            left: 20px;
+        }
+        
+        .Login {
+            position: absolute;
+            top: 30px; 
+            right: 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            
+            img.accountIcon {
+                margin-right: 8px;
+                width: 2rem; 
+                height: 2rem;
+            }
+            
+            p.user {
+                margin: 0;
+            }
+            
+        }
+        #dropdownConnect {
+            display: flex;
+            flex-direction: column; 
+            position: absolute; 
+            top: 70px; 
+            right: 20px; 
+            background-color: $color-primary; 
+            padding: 10px; 
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
-header .Login p.user {
-    margin: 0;
-}
+        
+    }
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: calc(150vh); 
+        box-sizing: border-box;
+    }
+    
+    h1, header h2, header h3, header h4, header h5, header h6 {
+        margin: 0;
+        padding: 0;
+    }
+    
+    h1 {
+        text-align: center;
+    }
 
-
-main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: calc(150vh); 
-    box-sizing: border-box;
-}
-
-h1, header h2, header h3, header h4, header h5, header h6 {
-    margin: 0;
-    padding: 0;
-}
-
-h1 {
-    text-align: center;
-}
+}    
 
 
