@@ -1,9 +1,12 @@
 import { useState } from 'react';
-import { usePostRegisterMutation } from '../../../slices/ApiSlice';
+import { usePostRegisterMutation, usePostLoginMutation } from '../../../slices/ApiSlice';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateAccount() {
     const [formData, setFormData] = useState({ email: '', plainPassword: '', agreeTerms: false });
-    const [register, { isLoading, isError, error }] = usePostRegisterMutation();
+    const [register, { isLoading: isRegisterLoading, isError: isRegisterError, error: registerError }] = usePostRegisterMutation();
+    const [login, { isLoading: isLoginLoading, error: loginError, isSuccess: isLoginSuccess }] = usePostLoginMutation();
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value, checked, type } = e.target;
@@ -17,8 +20,14 @@ export default function CreateAccount() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await register(formData);
-            // Handle success, maybe redirect or show a success message
+            const registerResult = await register(formData).unwrap();
+            if (!registerResult.isError) {
+                const loginResult = await login({ email: formData.email, password: formData.plainPassword }).unwrap();
+                if (loginResult.token) {
+                    localStorage.setItem('jwtToken', loginResult.token);
+                    navigate('/'); // Redirect to the home page or any other desired route
+                }
+            }
         } catch (err) {
             // Handle error, display error message
         }
@@ -40,8 +49,9 @@ export default function CreateAccount() {
                     Agree to terms:
                     <input type="checkbox" name="agreeTerms" checked={formData.agreeTerms} onChange={handleChange} required />
                 </label>
-                <button type="submit" disabled={isLoading}>Register</button>
-                {isError && <div>Error: {error.message}</div>}
+                <button type="submit" disabled={isRegisterLoading || isLoginLoading}>Register</button>
+                {isRegisterError && <div>Error: {registerError.message}</div>}
+                {loginError && <div>Error: {loginError.error}</div>}
             </form>
         </>
     );

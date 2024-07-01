@@ -22,6 +22,14 @@ export default function Connect() {
     const handleLogin = () => {
         navigate('/login');
     }
+    const handleLogout = () => {
+        localStorage.removeItem('jwtToken')
+        location.reload()
+    }
+
+    const handleRegister = () => {
+        navigate('/new/account');
+    }
 
     return(
         <>
@@ -36,8 +44,15 @@ export default function Connect() {
                 </button>
                 {showDropdown && (
                 <div id='dropdownConnect'>
-                    <button className='Connection' onClick={handleLogin}>Connection</button>
-                    <button className='CreateAccount'>Inscription</button>
+                    {
+                        error ?
+                        <>
+                            <button className='Connection' onClick={handleLogin}>Connection</button>
+                            <button className='CreateAccount' onClick={handleRegister}>Inscription</button>
+                        </>
+                        :
+                        <button onClick={handleLogout}>Logout</button>
+                        }
                 </div>
 
                 )}

@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Role;
+
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,17 +10,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Routing\Annotation\Route; 
+
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register', methods: ['POST'])]
+
+    #[Route('/register', name: 'api_register', methods: ['POST'])]
     public function register(
         Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager,
-        SerializerInterface $serializer
     ): JsonResponse {
         $jsonData = json_decode($request->getContent(), true);
 
@@ -44,24 +44,16 @@ class RegistrationController extends AbstractController
             );
 
             $email = $form->get('email')->getData();
-            $username = $this->extractUsernameFromEmail($email);
-            $user->setUsername($username);
+            // $username = $this->extractUsernameFromEmail($email);
+            // $user->setUsername($username);
 
-            $defaultRole = $entityManager->getRepository(Role::class)->findOneBy(['title' => 'user']);
-            if (!$defaultRole) {
-                throw new \Exception('Default role not found');
-            }
-            $user->setRole($defaultRole);
-
+            $user->setRoles(["ROLE_USER"]);
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // Serialize the User object to JSON
-            $jsonUser = $serializer->serialize($user, 'json', [
-                'groups' => ['user_details'],
-            ]);
 
-            return new JsonResponse($jsonUser, 201, [], true);
+            // Renvoyer le token JWT en JSON
+            return new JsonResponse(['message' => 'success'], 201);
         }
 
         // If the form is not valid, return the errors as JSON
@@ -69,12 +61,12 @@ class RegistrationController extends AbstractController
         return new JsonResponse($errors, 400);
     }
 
-    private function extractUsernameFromEmail(string $email): string
-    {
-        // Get the first part of the email before the @ symbol
-        $parts = explode('@', $email);
-        return $parts[0];
-    }
+    // private function extractUsernameFromEmail(string $email): string
+    // {
+    //     // Get the first part of the email before the @ symbol
+    //     $parts = explode('@', $email);
+    //     return $parts[0];
+    // }
 
     private function getFormErrors(\Symfony\Component\Form\Form $form): array
     {

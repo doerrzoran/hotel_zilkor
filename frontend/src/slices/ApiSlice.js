@@ -10,11 +10,20 @@ const baseQuery = fetchBaseQuery({
         }
         return headers;
     }
-})
+});
+
+const baseQueryWithReauth = async (args, api, extraOptions) => {
+    let result = await baseQuery(args, api, extraOptions)
+    if (result.error && result.error.status === 401) {
+        // Remove the token from localStorage
+        localStorage.removeItem('jwtToken')
+    }
+    return result
+}
 
 export const ApiSlice = createApi({
     reducerPath: 'Api',
-    baseQuery,
+    baseQuery: baseQueryWithReauth,
     endpoints: (builder) => ({
         getHome: builder.query({
             query: () => ({
@@ -33,7 +42,7 @@ export const ApiSlice = createApi({
         }),
         postRegister: builder.mutation({
             query: (body) => ({
-                url: '/register',
+                url: 'register',
                 method: 'POST',
                 body,
             })
