@@ -6,6 +6,7 @@ use App\Repository\RoomRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class RoomsController extends AbstractController
 {
@@ -16,7 +17,8 @@ class RoomsController extends AbstractController
         $this->roomRepository = $roomRepository;
     }
 
-    #[Route('/rooms', name: 'app_rooms')]
+    #[Route('/backoffice/rooms', name: 'app_admin_rooms')]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(): JsonResponse
     {
         $rooms = $this->roomRepository->findAll();

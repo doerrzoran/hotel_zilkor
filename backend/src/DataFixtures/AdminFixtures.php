@@ -20,7 +20,6 @@ class AdminFixtures extends Fixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager): void
     {
 
-
         $admin = new Admin();
         $admin->setPseudo('Administrateur')
              ->setRoles(["ROLE_ADMIN"])

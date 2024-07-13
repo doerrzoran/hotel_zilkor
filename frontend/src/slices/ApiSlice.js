@@ -32,7 +32,7 @@ export const ApiSlice = createApi({
         }),
         getRooms: builder.query({
             query: () => ({
-                url: '/rooms',
+                url: '/backoffice/rooms',
             })
         }),
         getRegister: builder.query({
