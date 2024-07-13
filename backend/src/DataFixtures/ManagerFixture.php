@@ -2,74 +2,75 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Manager;
 use App\Entity\Role;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ManagerFixture extends Fixture implements OrderedFixtureInterface
 {
-    private $managerRegistry;
+    private UserPasswordHasherInterface $hasher;
 
-    public function __construct(ManagerRegistry $managerRegistry)
+    public function __construct(UserPasswordHasherInterface $hasher)
     {
-        $this->managerRegistry = $managerRegistry;
+        $this->hasher = $hasher;
     }
-    
+
     public function load(ObjectManager $manager): void
     {
-        $roleRepository = $this->managerRegistry->getRepository(Role::class);
-        $managerRole = $roleRepository->findOneBy([ 'title' => 'manager']);
 
-        if (!$managerRole) {
-            throw new \Exception('Manager role not found. Make sure RolesFixtures are loaded first.');
-        }
 
-        $hostelManager = new User();
+        $hostelManager = new Manager();
         $hostelManager
-        ->setUsername("Bernard")
-        ->setRole($managerRole)
-        ->setRoles(["Role_Manager"])
+        ->setPseudo("Bernard")
+        ->setName("Bernard")
+        ->setFirstname("Bernard")
+        ->setRoles(["ROLE_MANAGER"])
         ->setEmail("Bernard@mail.com")
-        ->setPassword("Bernard:pw2");
+        ->setPassword($this->hasher->hashPassword($hostelManager, "Bernard:pw2"));
         $manager->persist($hostelManager);
 
-        $hostelManager = new User();
+        $hostelManager = new Manager();
         $hostelManager
-        ->setUsername("Walter")
-        ->setRole($managerRole)
-        ->setRoles(["Role_Manager"])
+        ->setPseudo("Walter")
+        ->setName("Walter")
+        ->setFirstname("Walter")
+        ->setRoles(["ROLE_MANAGER"])
         ->setEmail("Walter@mail.com")
-        ->setPassword("Walter:pw2");
+        ->setPassword($this->hasher->hashPassword($hostelManager, "Walter:pw2"));
         $manager->persist($hostelManager);
 
-        $hostelManager = new User();
+        $hostelManager = new Manager();
         $hostelManager
-        ->setUsername("Kamal")
-        ->setRole($managerRole)
-        ->setRoles(["Role_Manager"])
+        ->setPseudo("Kamal")
+        ->setName("Kamal")
+        ->setFirstname("Kamal")
+        ->setRoles(["ROLE_MANAGER"])
         ->setEmail("Kamal@mail.com")
-        ->setPassword("Kamal:pw2");
+        ->setPassword($this->hasher->hashPassword($hostelManager, "Kamal:pw2"));
         $manager->persist($hostelManager);
 
-        $hostelManager = new User();
+        $hostelManager = new Manager();
         $hostelManager
-        ->setUsername("Carla")
-        ->setRole($managerRole)
-        ->setRoles(["Role_Manager"])
+        ->setPseudo("Carla")
+        ->setName("Carla")
+        ->setFirstname("Carla")
+        ->setRoles(["ROLE_MANAGER"])
         ->setEmail("Carla@mail.com")
-        ->setPassword("Carla:pw2");
+        ->setPassword($this->hasher->hashPassword($hostelManager, "Carla:pw2"));
         $manager->persist($hostelManager);
 
-        $hostelManager = new User();
+        $hostelManager = new Manager();
         $hostelManager
-        ->setUsername("Shinji")
-        ->setRole($managerRole)
-        ->setRoles(["Role_Manager"])
+        ->setPseudo("Shinji")
+        ->setName("Shinji")
+        ->setFirstname("Shinji")
+        ->setRoles(["ROLE_MANAGER"])
         ->setEmail("Shinji@mail.com")
-        ->setPassword("Shinji:pw2");
+        ->setPassword($this->hasher->hashPassword($hostelManager, "Shinji:pw2"));
         $manager->persist($hostelManager);
         
         $manager->flush();
@@ -77,6 +78,6 @@ class ManagerFixture extends Fixture implements OrderedFixtureInterface
 
     public function getOrder():int
     {
-        return 3;
+        return 2;
     }
 }

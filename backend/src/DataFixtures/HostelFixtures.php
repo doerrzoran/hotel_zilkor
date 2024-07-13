@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Hostel;
+use App\Entity\Manager;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -20,14 +21,14 @@ class HostelFixtures extends Fixture implements OrderedFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        $userRepository = $this->managerRegistry->getRepository(User::class);
+        $userRepository = $this->managerRegistry->getRepository(Manager::class);
 
         $managers = [
-            'Paris' => $userRepository->findOneBy(['username' => 'Bernard']),
-            'New York' => $userRepository->findOneBy(['username' => 'Walter']),
-            'Marrakech' => $userRepository->findOneBy(['username' => 'Kamal']),
-            'Rio de Janeiro' => $userRepository->findOneBy(['username' => 'Carla']),
-            'Tokyo' => $userRepository->findOneBy(['username' => 'Shinji']),
+            'Paris' => $userRepository->findOneBy(['pseudo' => 'Bernard']),
+            'New York' => $userRepository->findOneBy(['pseudo' => 'Walter']),
+            'Marrakech' => $userRepository->findOneBy(['pseudo' => 'Kamal']),
+            'Rio de Janeiro' => $userRepository->findOneBy(['pseudo' => 'Carla']),
+            'Tokyo' => $userRepository->findOneBy(['pseudo' => 'Shinji']),
         ];
 
         $hostels = [
@@ -90,6 +91,6 @@ class HostelFixtures extends Fixture implements OrderedFixtureInterface
 
     public function getOrder(): int
     {
-        return 4;
+        return 3;
     }
 }

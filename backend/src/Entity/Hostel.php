@@ -18,9 +18,6 @@ class Hostel
     #[ORM\Column(length: 255)]
     private ?string $location = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?User $manager = null;
-
     /**
      * @var Collection<int, Room>
      */
@@ -35,6 +32,9 @@ class Hostel
 
     #[ORM\Column]
     private ?int $numberOfRooms = null;
+
+    #[ORM\OneToOne(inversedBy: 'hostel', cascade: ['persist', 'remove'])]
+    private ?Manager $manager = null;
 
     public function __construct()
     {
@@ -54,18 +54,6 @@ class Hostel
     public function setLocation(string $location): static
     {
         $this->location = $location;
-
-        return $this;
-    }
-
-    public function getManager(): ?User
-    {
-        return $this->manager;
-    }
-
-    public function setManager(?User $manager): static
-    {
-        $this->manager = $manager;
 
         return $this;
     }
@@ -132,6 +120,18 @@ class Hostel
     public function setNumberOfRooms(int $numberOfRooms): static
     {
         $this->numberOfRooms = $numberOfRooms;
+
+        return $this;
+    }
+
+    public function getManager(): ?Manager
+    {
+        return $this->manager;
+    }
+
+    public function setManager(?Manager $manager): static
+    {
+        $this->manager = $manager;
 
         return $this;
     }
