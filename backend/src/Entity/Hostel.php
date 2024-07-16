@@ -6,6 +6,8 @@ use App\Repository\HostelRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 #[ORM\Entity(repositoryClass: HostelRepository::class)]
 class Hostel
@@ -13,6 +15,7 @@ class Hostel
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('hostel:read')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -22,18 +25,23 @@ class Hostel
      * @var Collection<int, Room>
      */
     #[ORM\OneToMany(targetEntity: Room::class, mappedBy: 'hostel', orphanRemoval: true)]
+    #[Groups('hostel:read')]
     private Collection $rooms;
 
     #[ORM\Column(length: 255)]
+    #[Groups('hostel:read')]
     private ?string $city = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('hostel:read')]
     private ?string $country = null;
 
     #[ORM\Column]
+    #[Groups('hostel:read')]
     private ?int $numberOfRooms = null;
 
     #[ORM\OneToOne(inversedBy: 'hostel', cascade: ['persist', 'remove'])]
+    #[Groups('hostel:read')]
     private ?Manager $manager = null;
 
     public function __construct()

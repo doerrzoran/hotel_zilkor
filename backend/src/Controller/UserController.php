@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    #[Route(path: '/api/me', name: 'api_get_user')]
+    #[Route(path: 'api/me', name: 'api_get_user')]
     public function getUserInfo(): JsonResponse
     {
         $user = $this->getUser();

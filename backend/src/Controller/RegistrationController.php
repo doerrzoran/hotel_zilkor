@@ -15,12 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class RegistrationController extends AbstractController
 {
 
-    #[Route('/register', name: 'api_register', methods: ['POST'])]
+    #[Route('api/register', name: 'api_register', methods: ['POST'])]
     public function register(
         Request $request,
         UserPasswordHasherInterface $guestPasswordHasher,
         EntityManagerInterface $entityManager,
-    ): JsonResponse {
+    ): JsonResponse 
+    {
         $jsonData = json_decode($request->getContent(), true);
 
         if (empty($jsonData)) {
@@ -28,7 +29,7 @@ class RegistrationController extends AbstractController
         }
 
         $guest = new Guest();
-        $form = $this->createForm(RegistrationFormType::class, $guest,  array('csrf_protection' => false));
+        $form = $this->createForm(RegistrationFormType::class, $guest, array('csrf_protection' => false));
 
         // Submit the JSON data to the form
         $form->submit($jsonData);

@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\ManagerRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 #[ORM\Entity(repositoryClass: ManagerRepository::class)]
 class Manager extends User
@@ -25,6 +25,7 @@ class Manager extends User
     private ?string $slug = null;
 
     #[ORM\OneToOne(mappedBy: 'manager', cascade: ['persist', 'remove'])]
+    #[MaxDepth(1)]
     private ?Hostel $hostel = null;
 
     public function getPseudo(): ?string

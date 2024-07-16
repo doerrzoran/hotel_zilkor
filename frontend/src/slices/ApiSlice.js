@@ -35,14 +35,9 @@ export const ApiSlice = createApi({
                 url: '/backoffice/rooms',
             })
         }),
-        getRegister: builder.query({
-            query: () => ({
-                url: '/register',
-            })
-        }),
         postRegister: builder.mutation({
             query: (body) => ({
-                url: 'register',
+                url: 'api/register',
                 method: 'POST',
                 body,
             })
@@ -66,7 +61,6 @@ export const ApiSlice = createApi({
 export const {
     useGetHomeQuery,
     useGetRoomsQuery,
-    useGetRegisterQuery,
     usePostRegisterMutation,
     usePostLoginMutation,
     useGetMeQuery
