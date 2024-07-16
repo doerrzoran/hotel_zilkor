@@ -6,7 +6,6 @@ use App\Repository\HostelRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class HostelController extends AbstractController
@@ -26,7 +25,12 @@ class HostelController extends AbstractController
     {
         $hostel = $this->hostelRepository->find($hostel);
 
-        $data = $this->serializer->serialize($hostel, 'json', ['groups' => 'hostel:read']);
+        $data = $this->serializer->serialize($hostel, 
+        'json', 
+        ['groups' => ['hostel:read'],
+        'circular_reference_handler' => function ($object) {
+            return $object->getId();
+        }]);
         
         return new JsonResponse($data, JsonResponse::HTTP_OK, [], true);
     }

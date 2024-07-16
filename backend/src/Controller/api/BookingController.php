@@ -13,7 +13,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class BookingController extends AbstractController
 {
     #[Route('/api/booking', name: 'api_booking')]
-    #[IsGranted('ROLE_GUEST')]
+    // #[IsGranted('ROLE_GUEST')]
     public function book(Request $request): JsonResponse
     {
         $jsonData = json_decode($request->getContent(), true);

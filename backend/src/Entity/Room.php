@@ -15,30 +15,35 @@ class Room
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups('room')]
+    #[Groups('hostel:read')]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'rooms')]
     #[ORM\JoinColumn(nullable: false)]
-    #[MaxDepth(1)]
+    #[Groups('hostel:read')]
     private ?Hostel $hostel = null;
 
     #[ORM\Column]
+    #[Groups('hostel:read')]
     private ?int $roomNumber = null;
 
     #[ORM\Column]
+    #[Groups('hostel:read')]
     private ?int $capacity = null;
 
     #[ORM\Column]
+    #[Groups('hostel:read')]
     private ?int $numberOfBed = null;
 
     #[ORM\Column]
+    #[Groups('hostel:read')]
     private ?bool $isAvialable = null;
 
     /**
      * @var Collection<int, Booking>
      */
     #[ORM\OneToMany(targetEntity: Booking::class, mappedBy: 'room')]
+    #[ORM\JoinColumn(nullable: false)]
     private Collection $bookings;
 
     public function __construct()
