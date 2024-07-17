@@ -18,6 +18,7 @@ class Room
     #[Groups('hostel:read')]
     private ?int $id = null;
 
+    #[MaxDepth(1)]
     #[ORM\ManyToOne(inversedBy: 'rooms')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups('hostel:read')]
@@ -44,6 +45,7 @@ class Room
      */
     #[ORM\OneToMany(targetEntity: Booking::class, mappedBy: 'room')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups('hostel:read')]
     private Collection $bookings;
 
     public function __construct()

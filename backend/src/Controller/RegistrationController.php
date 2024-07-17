@@ -46,7 +46,7 @@ class RegistrationController extends AbstractController
             $guest->setEmail($email);
             $guest->setPassword($password);
             $guest->setPseudo($pseudo);
-            $guest->setRoles(["ROLE_USER"]);
+            $guest->setRoles(["ROLE_GUEST"]);
             $entityManager->persist($guest);
             $entityManager->flush();
 
