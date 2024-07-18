@@ -48,12 +48,14 @@ class Room
     #[Groups('hostel:read')]
     private Collection $bookings;
 
-    #[ORM\Column(nullable: true)]
-    private ?array $aviability = [];
+    #[ORM\Column(type: 'json', nullable: false)]
+    #[Groups('hostel:read')]
+    private array $aviability;
 
     public function __construct()
     {
         $this->bookings = new ArrayCollection();
+        $this->aviability = [];
     }
 
     public function getId(): ?int
@@ -66,10 +68,9 @@ class Room
         return $this->hostel;
     }
 
-    public function setHostel(?Hostel $hostel): static
+    public function setHostel(?Hostel $hostel): self
     {
         $this->hostel = $hostel;
-
         return $this;
     }
 
@@ -78,10 +79,9 @@ class Room
         return $this->roomNumber;
     }
 
-    public function setRoomNumber(int $roomNumber): static
+    public function setRoomNumber(int $roomNumber): self
     {
         $this->roomNumber = $roomNumber;
-
         return $this;
     }
 
@@ -90,10 +90,9 @@ class Room
         return $this->capacity;
     }
 
-    public function setCapacity(int $capacity): static
+    public function setCapacity(int $capacity): self
     {
         $this->capacity = $capacity;
-
         return $this;
     }
 
@@ -102,10 +101,9 @@ class Room
         return $this->numberOfBed;
     }
 
-    public function setNumberOfBed(int $numberOfBed): static
+    public function setNumberOfBed(int $numberOfBed): self
     {
         $this->numberOfBed = $numberOfBed;
-
         return $this;
     }
 
@@ -114,10 +112,9 @@ class Room
         return $this->isAvialable;
     }
 
-    public function setAvialable(bool $isAvialable): static
+    public function setAvialable(bool $isAvialable): self
     {
         $this->isAvialable = $isAvialable;
-
         return $this;
     }
 
@@ -129,17 +126,16 @@ class Room
         return $this->bookings;
     }
 
-    public function addBooking(Booking $booking): static
+    public function addBooking(Booking $booking): self
     {
         if (!$this->bookings->contains($booking)) {
-            $this->bookings->add($booking);
+            $this->bookings[] = $booking;
             $booking->setRoom($this);
         }
-
         return $this;
     }
 
-    public function removeBooking(Booking $booking): static
+    public function removeBooking(Booking $booking): self
     {
         if ($this->bookings->removeElement($booking)) {
             // set the owning side to null (unless already changed)
@@ -147,19 +143,17 @@ class Room
                 $booking->setRoom(null);
             }
         }
-
         return $this;
     }
 
-    public function getAviability(): ?array
+    public function getAviability(): array
     {
         return $this->aviability;
     }
 
-    public function setAviability(?array $aviability): static
+    public function setAviability(array $aviability): self
     {
         $this->aviability = $aviability;
-
         return $this;
     }
 }

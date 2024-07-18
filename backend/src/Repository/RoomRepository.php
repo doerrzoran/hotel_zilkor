@@ -18,7 +18,7 @@ class RoomRepository extends ServiceEntityRepository
 
     public function findAvailableRooms(int $hostelId, int $capacity, int $numberOfBeds)
     {
-        return $this->createQueryBuilder('r')
+        $result = $this->createQueryBuilder('r')
             ->andWhere('r.hostel = :hostelId')
             ->andWhere('r.capacity >= :capacity')
             ->andWhere('r.numberOfBed >= :numberOfBeds')
@@ -28,6 +28,10 @@ class RoomRepository extends ServiceEntityRepository
             ->setParameter('numberOfBeds', $numberOfBeds)
             ->getQuery()
             ->getResult();
+
+            // error_log('findAvailableRooms result: ' . print_r($result, true));
+
+    return $result;
     }
 
     //    /**

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240715142222 extends AbstractMigration
+final class Version20240718150311 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -34,7 +34,7 @@ final class Version20240715142222 extends AbstractMigration
         $this->addSql('CREATE TABLE hostel (id INT NOT NULL, manager_id INT DEFAULT NULL, location VARCHAR(255) NOT NULL, city VARCHAR(255) NOT NULL, country VARCHAR(255) NOT NULL, number_of_rooms INT NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_38FBB167783E3463 ON hostel (manager_id)');
         $this->addSql('CREATE TABLE manager (id INT NOT NULL, pseudo VARCHAR(255) DEFAULT NULL, name VARCHAR(255) NOT NULL, firstname VARCHAR(255) NOT NULL, slug VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
-        $this->addSql('CREATE TABLE room (id INT NOT NULL, hostel_id INT NOT NULL, room_number INT NOT NULL, capacity INT NOT NULL, number_of_bed INT NOT NULL, is_avialable BOOLEAN NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE room (id INT NOT NULL, hostel_id INT NOT NULL, room_number INT NOT NULL, capacity INT NOT NULL, number_of_bed INT NOT NULL, is_avialable BOOLEAN NOT NULL, aviability JSON NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_729F519BFC68ACC0 ON room (hostel_id)');
         $this->addSql('CREATE TABLE "user" (id INT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, discriminator VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_IDENTIFIER_EMAIL ON "user" (email)');

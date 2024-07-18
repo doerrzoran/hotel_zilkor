@@ -36,24 +36,17 @@ class BookingListener implements EventSubscriber
             $room = $booking->getRoom();
             $availability = $room->getAviability();
 
-            if ($availability === null) {
-                $availability = [];
-            }
-
             $newAvailability = [
                 'start' => $booking->getArrivalDate()->format('d/m/Y'),
                 'end' => $booking->getDepatureDate()->format('d/m/Y')
             ];
 
-            // Avoid duplicates
             foreach ($availability as $period) {
-                if ($period['start'] == $newAvailability['start'] && $period['end'] == $newAvailability['end']) {
+                if ($period['start'] === $newAvailability['start'] && $period['end'] === $newAvailability['end']) {
                     return;
                 }
             }
-
             $availability[] = $newAvailability;
-
             $room->setAviability($availability);
             $this->entityManager->flush();
         }
