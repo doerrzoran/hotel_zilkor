@@ -19,7 +19,7 @@ class RoomAviabilityController extends AbstractController
         $this->serializer = $serializer;
     }
 
-    #[Route('/room/aviability/{id}', name: 'app_api_room_aviability')]
+    #[Route('/room/aviability/{id}', name: 'api_room_aviability')]
     public function index($id): JsonResponse
     {
         $room = $this->roomRepository->find($id);

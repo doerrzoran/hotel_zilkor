@@ -35,6 +35,16 @@ export const ApiSlice = createApi({
                 url: 'api/backoffice/rooms',
             })
         }),
+        getHostels: builder.query({
+            query: () => ({
+                url: '/hostels',
+            })
+        }),
+        getRoomAviability: builder.query({
+            query: (id) => ({
+                url: `room/aviability/${id}`,
+            })
+        }),
         postRegister: builder.mutation({
             query: (body) => ({
                 url: 'api/register',
@@ -56,14 +66,23 @@ export const ApiSlice = createApi({
                 body,
             })
         }),
+        postFindRoom: builder.mutation({
+            query: (body) => ({
+                url: '/room/selection',
+                method: 'POST',
+                body,
+            })
+        }),
     })
 })
 
 // Export hooks for usage in functional components, which are auto-generated based on the defined endpoints
 export const {
     useGetRoomsQuery,
+    useGetHostelsQuery,
     useGetMeQuery,
     usePostRegisterMutation,
     usePostLoginMutation,
-    usePostBookingMutation
+    usePostBookingMutation,
+    usePostFindRoomMutation
 } = ApiSlice;

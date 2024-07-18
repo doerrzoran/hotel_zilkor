@@ -19,13 +19,13 @@ class HostelController extends AbstractController
         $this->serializer = $serializer;
     }
 
-    #[Route('/hostel/{id}', name: 'app_api_hostel')]
+    #[Route('/hostels', name: 'app_api_hostel')]
     // #[IsGranted('ROLE_GUEST')]
-    public function index($id): JsonResponse
+    public function index(): JsonResponse
     {
-        $hostel = $this->hostelRepository->find($id);
+        $hostels = $this->hostelRepository->findAll();
 
-        $data = $this->serializer->serialize($hostel, 
+        $data = $this->serializer->serialize($hostels, 
         'json', 
         ['groups' => ['hostel:read'],
         'circular_reference_handler' => function ($object) {

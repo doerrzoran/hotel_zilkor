@@ -48,6 +48,9 @@ class Room
     #[Groups('hostel:read')]
     private Collection $bookings;
 
+    #[ORM\Column(nullable: true)]
+    private ?array $aviability = [];
+
     public function __construct()
     {
         $this->bookings = new ArrayCollection();
@@ -144,6 +147,18 @@ class Room
                 $booking->setRoom(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAviability(): ?array
+    {
+        return $this->aviability;
+    }
+
+    public function setAviability(?array $aviability): static
+    {
+        $this->aviability = $aviability;
 
         return $this;
     }

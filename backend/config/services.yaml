@@ -31,5 +31,8 @@ services:
             $router: '@router'
             $logger: '@logger'
 
+    App\EventListener\BookingListener:
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
