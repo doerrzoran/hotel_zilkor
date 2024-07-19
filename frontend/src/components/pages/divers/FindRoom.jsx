@@ -1,14 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetHostelsQuery, usePostFindRoomMutation } from "../../../slices/ApiSlice";
 
 export default function FindRoom() {
     const [arrivalDate, setArrivalDate] = useState()
-    const [depatureDate, setDepatureDate] = useState()
-    const [hostel, setHostel] = useState()
+    const [departureDate, setDepartureDate] = useState()
+    const [hostel, setHostel] = useState(1)
     const [numberOfGuest, setNumberOfGuest] = useState()
-    const [numberOfBed, setNumberOfBed] = useState()
-    const[findRoom, {isLoading, error, isSuccess}] = usePostFindRoomMutation()
+    const [numberOfBeds, setNumberOfBeds] = useState()
+    const[findRoom, { isLoading, isSuccess}] = usePostFindRoomMutation()
     const { data } = useGetHostelsQuery()
+    const [response, setResponse] = useState(null);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        console.log(response)
+    }, [response])
 
 
     const handleSubmit = async (event) => {
@@ -16,21 +22,31 @@ export default function FindRoom() {
         const requestData = {
             hostel: hostel,
             arrivalDate: arrivalDate,
-            depatureDate: depatureDate,
+            departureDate: departureDate,
+            numberOfGuest: numberOfGuest,
+            numberOfBeds: numberOfBeds,
+            
         };
-        await findRoom(requestData);
+        try {
+            const response = await findRoom(requestData).unwrap();
+            setResponse(response);
+            setError(null); // Clear any previous errors
+        } catch (err) {
+            setError('Failed to book room');
+            setResponse(null); // Clear any previous response
+        }
     }
 
     return(
         <>
             {
-                isSuccess ? <div></div>:
+                isSuccess ? <div>booking</div>:
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="hostel">choisisser une destination</label>
-                    <select name="hostel">
-                        {data.map(hotel => (
-                            <option key={hotel.id} value={hotel.id}>
-                                {hotel.city}
+                    <select name="hostel" onChange={(event) => setHostel(event.target.value)}>
+                        {data && data.map(hostel => (
+                            <option key={hostel.id} value={hostel.id} >
+                                {hostel.city}
                             </option>
                         ))}
                     </select>
@@ -42,15 +58,15 @@ export default function FindRoom() {
                         value={arrivalDate}
                         onChange={(event) => setArrivalDate(event.target.value)}
                         />
-                    <label htmlFor="depatureDate">départ</label>
+                    <label htmlFor="departureDate">départ</label>
                     <input 
                         type="date" 
-                        name="depatureDate" 
-                        id="depatureDate"
-                        value={depatureDate}
-                        onChange={(event) => setDepatureDate(event.target.value)}
+                        name="departureDate" 
+                        id="departureDate"
+                        value={departureDate}
+                        onChange={(event) => setDepartureDate(event.target.value)}
                         />
-                    <label htmlFor="numberOfGuest">départ</label>
+                    <label htmlFor="numberOfGuest">nombre de personnes</label>
                     <input 
                         type="number" 
                         name="numberOfGuest" 
@@ -60,19 +76,19 @@ export default function FindRoom() {
                         value={numberOfGuest}
                         onChange={(event) => setNumberOfGuest(event.target.value)}
                         />
-                    <label htmlFor="numberOfBed">départ</label>
+                    <label htmlFor="numberOfBeds">nombre de lits</label>
                     <input 
                         type="number" 
-                        name="numberOfBed" 
-                        id="numberOfBed"
+                        name="numberOfBeds" 
+                        id="numberOfBeds"
                         min="1"
                         max="4"
-                        value={numberOfBed}
-                        onChange={(event) => setNumberOfBed(event.target.value)}
+                        value={numberOfBeds}
+                        onChange={(event) => setNumberOfBeds(event.target.value)}
                         />
                     
                     
-                    <button type="submit">Reserver</button>
+                    <button type="submit">trouver une chambre</button>
                 </form>
             }
         </>

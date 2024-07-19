@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Controller\api;
+namespace App\Controller;
 
 use App\Repository\HostelRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class HostelController extends AbstractController
+class HostelListController extends AbstractController
 {
     private $hostelRepository;
     private $serializer;
@@ -19,23 +19,18 @@ class HostelController extends AbstractController
         $this->serializer = $serializer;
     }
 
-    #[Route('/hostels', name: 'app_api_hostel')]
+    #[Route('/hostels/list', name: 'app_hostel_list')]
     public function index(): JsonResponse
     {
         $hostels = $this->hostelRepository->findAll();
 
-        // Manually convert entities to arrays with only 'id' and 'city'
-        $hostelArray = [];
-        foreach ($hostels as $hostel) {
-            $hostelData = [
-                'id' => $hostel->getId(),
-                'city' => $hostel->getCity()
-            ];
-            $hostelArray[] = $hostelData;
-        }
-
-        $data = $this->serializer->serialize($hostelArray, 'json');
-
+        $data = $this->serializer->serialize($hostels, 
+        'json', 
+        ['groups' => ['hostel:read'],
+        'circular_reference_handler' => function ($object) {
+            return $object->getId();
+        }]);
+        
         return new JsonResponse($data, JsonResponse::HTTP_OK, [], true);
     }
 }

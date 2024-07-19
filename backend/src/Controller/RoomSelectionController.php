@@ -25,19 +25,19 @@ class RoomSelectionController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         // Vérifiez si les données nécessaires sont présentes
-        if (!isset($data['hostelId']) || !isset($data['capacity']) || !isset($data['numberOfBeds']) || !isset($data['arrivalDate']) || !isset($data['departureDate'])) {
-            return new JsonResponse(['error' => 'Missing required parameters'], 400);
+        if (!isset($data['hostel']) || !isset($data['numberOfGuest']) || !isset($data['numberOfBeds']) || !isset($data['arrivalDate']) || !isset($data['departureDate'])) {
+            return new JsonResponse(['error' => 'Missing required parameters', 'parameters' => $data], 400);
         }
 
-        $hostelId = $data['hostelId'];
-        $capacity = $data['capacity'];
+        $hostel = $data['hostel'];
+        $capacity = $data['numberOfGuest'];
         $numberOfBeds = $data['numberOfBeds'];
         $arrivalDate = new \DateTime($data['arrivalDate']);
         $departureDate = new \DateTime($data['departureDate']);
 
         // Utilisez le repository pour effectuer une requête personnalisée
         $roomRepository = $entityManager->getRepository(Room::class);
-        $availableRooms = $roomRepository->findAvailableRooms($hostelId, $capacity, $numberOfBeds);
+        $availableRooms = $roomRepository->findAvailableRooms($hostel, $capacity, $numberOfBeds);
         error_log('Available rooms before filtering: ' . count($availableRooms));
         
         $filteredRooms = [];
