@@ -42,7 +42,7 @@ class BookingListenerTest extends KernelTestCase
         $booking = new Booking();
         $booking->setRoom($room);
         $booking->setArrivalDate(new \DateTime('2024-07-18'));
-        $booking->setDepatureDate(new \DateTime('2024-07-20'));
+        $booking->setdepartureDate(new \DateTime('2024-07-20'));
         $booking->setGuest($guest);
         $booking->setActive(true);
 

@@ -26,7 +26,7 @@ class BookingType extends AbstractType
                     new GreaterThan(['value' => 'today', 'message' => 'The arrival date must be in the future.']),
                 ],
             ])
-            ->add('depatureDate', DateType::class, [
+            ->add('departureDate', DateType::class, [
                 'widget' => 'single_text',
                 'html5' => false,
                 'format' => 'yyyy-MM-dd',

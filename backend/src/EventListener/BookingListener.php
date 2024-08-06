@@ -38,7 +38,7 @@ class BookingListener implements EventSubscriber
 
             $newAvailability = [
                 'start' => $booking->getArrivalDate()->format('d/m/Y'),
-                'end' => $booking->getDepatureDate()->format('d/m/Y')
+                'end' => $booking->getdepartureDate()->format('d/m/Y')
             ];
 
             foreach ($availability as $period) {

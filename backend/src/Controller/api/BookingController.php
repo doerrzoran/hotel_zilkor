@@ -26,7 +26,7 @@ class BookingController extends AbstractController
         $form->submit($jsonData);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $departureDate = $form->get('depatureDate')->getData();
+            $departureDate = $form->get('departureDate')->getData();
             $arrivalDate = $form->get('arrivalDate')->getData();
             $roomId = $form->get('room')->getData();
 
@@ -37,7 +37,7 @@ class BookingController extends AbstractController
             $interval = $arrivalDate->diff($departureDate);
             $booking->setBookingPeriod(['days' => $interval->days]);
             $booking->setArrivalDate($arrivalDate);
-            $booking->setDepatureDate($departureDate);
+            $booking->setdepartureDate($departureDate);
             $booking->setBookingPeriod(['days' => $interval, 'arrival' => $arrivalDate, 'depature' => $departureDate]);
             
             $booking->setActive(true);

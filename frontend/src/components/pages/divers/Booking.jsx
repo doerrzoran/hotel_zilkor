@@ -1,47 +1,75 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetRoomsQuery, usePostBookingMutation } from "../../../slices/ApiSlice";
+import { useNavigate } from 'react-router-dom';
 
-export default function Booking() {
-    const [arrivalDate, setArrivalDate] = useState()
-    const [depatureDate, setDepatureDate] = useState()
-    const [room, setRoom] = useState(301)
-    const [book, { isLoading, error, isSuccess }] = usePostBookingMutation()
-    // const { data } = useGetRoomsQuery()
+export default function Booking(props) {
+    const navigate = useNavigate()
+    const [room, setRoom] = useState(301);
+    const [book, { isLoading, error, isSuccess }] = usePostBookingMutation();
+    const { rooms, arrivalDate, departureDate } = props;
+    const [currentPage, setCurrentPage] = useState(1);
+    const roomsPerPage = 10;
+
     const handleSubmit = async (event) => {
-        event.preventDefault()
+        event.preventDefault();
         const requestData = {
             room: room,
             arrivalDate: arrivalDate,
-            depatureDate: depatureDate,
+            departureDate: departureDate,
         };
-        await book(requestData);
-    }
-
-    return(
-        <>
-            {
-                isSuccess ? <div></div>:
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor="arrivalDate">arrivé</label>
-                    <input 
-                        type="date" 
-                        name="arrivalDate" 
-                        id="arrivalDate"
-                        value={arrivalDate}
-                        onChange={(event) => setArrivalDate(event.target.value)}
-                        />
-                    <label htmlFor="depatureDate">départ</label>
-                    <input 
-                        type="date" 
-                        name="depatureDate" 
-                        id="depatureDate"
-                        value={depatureDate}
-                        onChange={(event) => setDepatureDate(event.target.value)}
-                        />
-                    <button type="submit">Reserver</button>
-                </form>
+        try {
+            const response = await book(requestData).unwrap();
+            // Gérer le succès ici
+            console.log("Réservation réussie :", response);
+        } catch (err) {
+            // Gérer l'erreur ici
+            if (err.status === 401 && err.data?.message === "JWT Token not found") {
+                navigate('login')
+            } else {
+                console.error("Erreur lors de la réservation :", err);
             }
+        }
+    };
+
+    // useEffect(() => {
+    //     console.log(rooms);
+    // }, [rooms]);
+
+    // Calculer les index des chambres à afficher
+    const indexOfLastRoom = currentPage * roomsPerPage;
+    const indexOfFirstRoom = indexOfLastRoom - roomsPerPage;
+    const currentRooms = rooms ? rooms.slice(indexOfFirstRoom, indexOfLastRoom) : [];
+
+    // Changer de page
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    return (
+        <>
+            {rooms ? (
+                <form onSubmit={handleSubmit}>
+                    {currentRooms.map((room) => (
+                        <div key={room.roomNumber}>
+                        Chambre {room.roomNumber}
+                        <button onClick={() => setRoom(room.roomNumber)}>
+                            Réserve r
+                        </button>
+                    </div>
+                    ))}
+                    
+                    {/* Pagination */}
+                    <div>
+                        {Array.from({ length: Math.ceil(rooms.length / roomsPerPage) }, (_, i) => (
+                            <button key={i} onClick={() => paginate(i + 1)}>
+                                {i + 1}
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* Ajoutez ici les champs pour arrivalDate, departureDate, et le bouton de soumission */}
+                </form>
+            ) : (
+                <div>Aucune chambre disponible</div>
+            )}
         </>
-    )
-    
+    );
 }

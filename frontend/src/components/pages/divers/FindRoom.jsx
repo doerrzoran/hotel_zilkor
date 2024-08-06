@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useGetHostelsQuery, usePostFindRoomMutation } from "../../../slices/ApiSlice";
+import Booking from "./Booking";
 
 export default function FindRoom() {
     const [arrivalDate, setArrivalDate] = useState()
@@ -12,9 +13,9 @@ export default function FindRoom() {
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        console.log(response)
-    }, [response])
+    // useEffect(() => {
+    //     console.log(response)
+    // }, [response])
 
 
     const handleSubmit = async (event) => {
@@ -40,7 +41,10 @@ export default function FindRoom() {
     return(
         <>
             {
-                isSuccess ? <div>booking</div>:
+                isSuccess ? <Booking rooms = {response} 
+                                    arrivalDate = {arrivalDate} 
+                                    departureDate = {departureDate} 
+                            />:
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="hostel">choisisser une destination</label>
                     <select name="hostel" onChange={(event) => setHostel(event.target.value)}>

@@ -25,7 +25,7 @@ class Booking
     private ?\DateTimeInterface $arrivalDate = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $depatureDate = null;
+    private ?\DateTimeInterface $departureDate = null;
 
     #[ORM\Column]
     private array $bookingPeriod = [];
@@ -75,14 +75,14 @@ class Booking
         return $this;
     }
 
-    public function getDepatureDate(): ?\DateTimeInterface
+    public function getdepartureDate(): ?\DateTimeInterface
     {
-        return $this->depatureDate;
+        return $this->departureDate;
     }
 
-    public function setDepatureDate(\DateTimeInterface $depatureDate): static
+    public function setdepartureDate(\DateTimeInterface $departureDate): static
     {
-        $this->depatureDate = $depatureDate;
+        $this->departureDate = $departureDate;
 
         return $this;
     }
