@@ -30,6 +30,11 @@ export const ApiSlice = createApi({
                 url: '/api/me',
             })
         }),
+        getMyBookings: builder.query({
+            query: () => ({
+                url: '/api/guest/bookings',
+            })
+        }),
         getRooms: builder.query({
             query: () => ({
                 url: 'api/backoffice/rooms',
@@ -38,6 +43,11 @@ export const ApiSlice = createApi({
         getHostels: builder.query({
             query: () => ({
                 url: '/hostels',
+            })
+        }),
+        getBookings: builder.query({
+            query: () => ({
+                url: '/booking/list',
             })
         }),
         getRoomAviability: builder.query({
@@ -80,7 +90,9 @@ export const ApiSlice = createApi({
 export const {
     useGetRoomsQuery,
     useGetHostelsQuery,
+    useGetBookingsQuery,
     useGetMeQuery,
+    useGetMyBookingsQuery,
     usePostRegisterMutation,
     usePostLoginMutation,
     usePostBookingMutation,

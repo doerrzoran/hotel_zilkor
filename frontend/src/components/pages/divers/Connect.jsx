@@ -1,7 +1,7 @@
 import account from '../../../assets/images/bouton-de-compte-rond-avec-lutilisateur-a-linterieur.png'
 import { useEffect, useState } from 'react'
 import { useGetMeQuery } from '../../../slices/ApiSlice'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Connect() {
     const { data, error, isLoading, refetch } = useGetMeQuery()
@@ -51,7 +51,10 @@ export default function Connect() {
                             <button className='CreateAccount' onClick={handleRegister}>Inscription</button>
                         </>
                         :
-                        <button onClick={handleLogout}>Logout</button>
+                        <>
+                            <a href="my/booking">vos reservations</a>
+                            <button onClick={handleLogout}>Logout</button>
+                        </>
                         }
                 </div>
 

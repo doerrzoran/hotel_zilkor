@@ -7,6 +7,8 @@ import Home from './components/pages/Home';
 import Rooms from './components/backoffice/Rooms';
 import CreateAccount from './components/pages/divers/CreateAccount';
 import Login from './components/pages/divers/Login';
+import Bookings from './components/backoffice/Bookings';
+import User from './components/pages/User';
 
 
 
@@ -23,12 +25,20 @@ function App() {
         element: <Rooms/>
       },
       {
+        path: 'backoffice/bookings',
+        element: <Bookings/>
+      },
+      {
         path: 'new/account',
         element: <CreateAccount/>
       },
       {
         path: 'login',
         element: <Login/>
+      },
+      {
+        path: 'my/booking',
+        element: <Layout content =  {<User/>} />
       },
     ])
   }, [])

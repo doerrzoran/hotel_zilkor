@@ -1,19 +1,21 @@
 import { useEffect } from "react";
-import { useGetMyBookingsQuery } from "../../slices/ApiSlice";
+import { useGetBookingsQuery } from "../../slices/ApiSlice";
 
-export default function User() {
-    const {data, isLoading, error } = useGetMyBookingsQuery()
+export default function Bookings() {
+    const {data, isLoading, error } = useGetBookingsQuery()
 
     useEffect(() => {
-        console.log(data)
-    }, [data])
+        console.log('isLoading:', isLoading);
+        console.log('error:', error);
+        console.log('data:', data);
+    }, [data, isLoading, error]);
 
     return(
         <>
             {isLoading ? (
                 <p>En Charge</p>
             ) : (
-                <div className="rooms-container">
+                <div className="bookings-container">
                     <h1>liste de reservations</h1>
                     {data && data.map(booking => (
                         <div key={booking.id} className="room-card">
@@ -32,4 +34,5 @@ export default function User() {
             )}
         </>
     )
-}
+    
+};
