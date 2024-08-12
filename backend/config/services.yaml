@@ -31,8 +31,9 @@ services:
             $router: '@router'
             $logger: '@logger'
 
-    App\EventListener\BookingListener:
+    App\EventListener\AccessDeniedListener:
         tags:
-            - { name: doctrine.event_listener, event: postPersist }
+            - { name: 'kernel.event_listener', event: 'kernel.exception', method: 'onKernelException' }
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

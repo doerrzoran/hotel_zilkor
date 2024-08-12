@@ -1,0 +1,33 @@
+// _body.scss
+
+body {
+    background-color: $background-color;
+    background-image: url('#{$background-image}');
+    @include background_image;
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+  
+    #root {
+      margin: 0;
+      padding: 0;
+    }
+  
+    @include desktop() {
+      font-size: 1rem;
+    }
+  
+    @include medium() {
+      font-size: 1rem;
+    }
+  
+    @include tablet() {
+      font-size: 1rem;
+    }
+  
+    @include mobile() {
+      margin: 0;
+      padding: 0;
+    }
+  }
+  

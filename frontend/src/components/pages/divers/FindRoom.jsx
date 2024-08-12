@@ -13,6 +13,21 @@ export default function FindRoom() {
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
 
+    const getTomorrowDate = () => {
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        return tomorrow.toISOString().split('T')[0]; // Format YYYY-MM-DD
+    }
+
+    const getDayAfterArrivalDate = () => {
+        if (!arrivalDate) return getTomorrowDate();
+        const arrival = new Date(arrivalDate);
+        const dayAfterArrival = new Date(arrival);
+        dayAfterArrival.setDate(dayAfterArrival.getDate() + 1);
+        return dayAfterArrival.toISOString().split('T')[0]; // Format YYYY-MM-DD
+    }
+
     // useEffect(() => {
     //     console.log(response)
     // }, [response])
@@ -59,6 +74,7 @@ export default function FindRoom() {
                         type="date" 
                         name="arrivalDate" 
                         id="arrivalDate"
+                        min={getTomorrowDate()}
                         value={arrivalDate}
                         onChange={(event) => setArrivalDate(event.target.value)}
                         />
@@ -67,30 +83,38 @@ export default function FindRoom() {
                         type="date" 
                         name="departureDate" 
                         id="departureDate"
+                        min={getDayAfterArrivalDate()}
                         value={departureDate}
                         onChange={(event) => setDepartureDate(event.target.value)}
                         />
-                    <label htmlFor="numberOfGuest">nombre de personnes</label>
-                    <input 
-                        type="number" 
-                        name="numberOfGuest" 
-                        id="numberOfGuest"
-                        min="1"
-                        max="4"
-                        value={numberOfGuest}
-                        onChange={(event) => setNumberOfGuest(event.target.value)}
-                        />
-                    <label htmlFor="numberOfBeds">nombre de lits</label>
-                    <input 
-                        type="number" 
-                        name="numberOfBeds" 
-                        id="numberOfBeds"
-                        min="1"
-                        max="4"
-                        value={numberOfBeds}
-                        onChange={(event) => setNumberOfBeds(event.target.value)}
-                        />
-                    
+                   <label htmlFor="numberOfGuest">Nombre de personnes</label>
+                        <select 
+                            name="numberOfGuest" 
+                            id="numberOfGuest"
+                            value={numberOfGuest}
+                            onChange={(event) => setNumberOfGuest(event.target.value)}
+                            >
+                            {[1, 2, 3, 4].map((value) => (
+                                <option key={value} value={value}>
+                                    {value}
+                                </option>
+                            ))}
+                        </select>
+
+                    <label htmlFor="numberOfBeds">Nombre de lits</label>
+                        <select 
+                            name="numberOfBeds" 
+                            id="numberOfBeds"
+                            value={numberOfBeds}
+                            onChange={(event) => setNumberOfBeds(event.target.value)}
+                            >
+                            {[1, 2, 3, 4].map((value) => (
+                                <option key={value} value={value}>
+                                    {value}
+                                </option>
+                            ))}
+                        </select>
+                                    
                     
                     <button type="submit">trouver une chambre</button>
                 </form>

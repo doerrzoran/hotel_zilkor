@@ -6,6 +6,7 @@ use App\Repository\HostelRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: HostelRepository::class)]
@@ -42,6 +43,11 @@ class Hostel
     #[ORM\OneToOne(inversedBy: 'hostel', cascade: ['persist', 'remove'])]
     #[Groups('hostel:read')]
     private ?Manager $manager = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('hostel:read')]
+    #[Gedmo\Slug(fields: ['city'])]
+    private ?string $slug = null;
 
     public function __construct()
     {
@@ -139,6 +145,18 @@ class Hostel
     public function setManager(?Manager $manager): static
     {
         $this->manager = $manager;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }

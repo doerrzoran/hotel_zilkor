@@ -26,8 +26,10 @@ class UserController extends AbstractController
 
         if (($user instanceof Admin || $user instanceof Manager || $user instanceof Guest) && $user->getPseudo()) {
             $responseData['pseudo'] = $user->getPseudo();
+            $responseData['role'] = $user->getRoles();
+  
         }
 
-        return new JsonResponse(['username' => $responseData['pseudo']]);
+        return new JsonResponse(['username' => $responseData['pseudo'], 'role' => $responseData['role']]);
     }
 }

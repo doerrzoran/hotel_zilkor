@@ -7,13 +7,19 @@ export default function Connect() {
     const { data, error, isLoading, refetch } = useGetMeQuery()
     const [showDropdown, setShowDropdown] = useState(false);
     const [username, setUsername] = useState()
+    const [role, setRole] = useState('')
+    const isAdmin = role.includes("ROLE_ADMIN")
     const navigate = useNavigate();
 
     useEffect(()=>{
         if (data && data.username) {          
             setUsername(data.username)
+            if (data && data.role) {          
+                setRole(data.role)
+                console.log(role)
+            }
         }
-    }, [data])
+    }, [data,])
 
     const handleClick = () => {
         setShowDropdown(!showDropdown)
@@ -35,12 +41,12 @@ export default function Connect() {
         <>
             <button className='Login' onClick={handleClick}>
                 <img className='accountIcon' src={account} alt="accountIcon" />
-                <p className='user'>
+                <div className='user'>
                     {
                         error ? <p>connexion</p> : 
                         username
                     }
-                </p>
+                </div>
                 </button>
                 {showDropdown && (
                 <div id='dropdownConnect'>
@@ -49,6 +55,12 @@ export default function Connect() {
                         <>
                             <button className='Connection' onClick={handleLogin}>Connection</button>
                             <button className='CreateAccount' onClick={handleRegister}>Inscription</button>
+                        </>
+                        :
+                        isAdmin ?
+                        <>
+                            <a href="/Backoffice/hostels">Backoffice</a>
+                            <button onClick={handleLogout}>Logout</button>
                         </>
                         :
                         <>

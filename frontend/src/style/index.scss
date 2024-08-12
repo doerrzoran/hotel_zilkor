@@ -1,8 +1,7 @@
 @import '_mixins.scss';
 @import '_variables.scss';
-@import '_general.scss';
-@import '_smalldevices.scss';
-@import '_desktop.scss';
-@import '_tablet.scss';
-@import '_medium.scss';
-@import '_rooms.scss';
+
+@import 'components/_body.scss';
+@import 'components/_header.scss';
+@import 'components/_main.scss';
+@import 'divers/_rooms.scss';

@@ -25,7 +25,7 @@ export default function User() {
                             <p>date arrivé: {booking.arrivalDate}</p>
                             <p>date de départ: {booking.depatureDate}</p>
                             <p>Statut: {booking.isActive ? 'annulé' : 'en cours'}</p>
-                            <button >detail</button>
+                            <button >annuler</button>
                         </div>
                     ))}
                 </div>

@@ -24,7 +24,7 @@ class AdminFixtures extends Fixture implements OrderedFixtureInterface
         $admin->setPseudo('Administrateur')
              ->setRoles(["ROLE_ADMIN"])
              ->setPassword($this->hasher->hashPassword($admin, "Admin:zilkor2"))
-             ->setEmail('doerrzoran@gmail.com');
+             ->setEmail('admin@admin.com');
         $manager->persist($admin);
         $manager->flush();
     }

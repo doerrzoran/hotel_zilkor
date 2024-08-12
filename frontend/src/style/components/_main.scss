@@ -1,0 +1,26 @@
+// _main.scss
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+  
+    @include desktop() {
+      height: calc(150vh);
+    }
+  
+    @include medium() {
+      height: calc(150vh);
+    }
+  
+    @include tablet() {
+      height: calc(150vh);
+    }
+  
+    @include mobile() {
+      height: calc(150vh);
+    }
+  }
+  

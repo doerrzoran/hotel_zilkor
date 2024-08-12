@@ -9,6 +9,9 @@ import CreateAccount from './components/pages/divers/CreateAccount';
 import Login from './components/pages/divers/Login';
 import Bookings from './components/backoffice/Bookings';
 import User from './components/pages/User';
+import NotFound from './components/pages/divers/NotFound';
+import Hostels from './components/backoffice/Hostels';
+import Backoffice from './components/backoffice/Backoffice';
 
 
 
@@ -21,6 +24,10 @@ function App() {
         element: <Layout content =  {<Home/>} />
       },
       {
+        path: 'backoffice',
+        element: <Layout content =  {<Backoffice/>} />
+      },
+      {
         path: 'backoffice/rooms',
         element: <Rooms/>
       },
@@ -29,16 +36,24 @@ function App() {
         element: <Bookings/>
       },
       {
+        path: 'backoffice/hostels',
+        element: <Hostels/>
+      },
+      {
         path: 'new/account',
         element: <CreateAccount/>
       },
       {
         path: 'login',
-        element: <Login/>
+        element: <Layout content =  {<Login/>} />
       },
       {
         path: 'my/booking',
         element: <Layout content =  {<User/>} />
+      },
+      {
+        path: '*',
+        element: <NotFound/>
       },
     ])
   }, [])

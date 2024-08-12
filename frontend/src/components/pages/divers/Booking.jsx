@@ -51,7 +51,7 @@ export default function Booking(props) {
                         <div key={room.roomNumber}>
                         Chambre {room.roomNumber}
                         <button onClick={() => setRoom(room.roomNumber)}>
-                            Réserve r
+                            Réserver
                         </button>
                     </div>
                     ))}

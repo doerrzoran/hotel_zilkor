@@ -45,6 +45,11 @@ export const ApiSlice = createApi({
                 url: '/hostels',
             })
         }),
+        getHostelsList: builder.query({
+            query: () => ({
+                url: '/hostels/list',
+            })
+        }),
         getBookings: builder.query({
             query: () => ({
                 url: '/booking/list',
@@ -90,6 +95,7 @@ export const ApiSlice = createApi({
 export const {
     useGetRoomsQuery,
     useGetHostelsQuery,
+    useGetHostelsListQuery,
     useGetBookingsQuery,
     useGetMeQuery,
     useGetMyBookingsQuery,

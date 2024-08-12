@@ -6,6 +6,7 @@ use App\Repository\HostelRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class HostelListController extends AbstractController
@@ -20,8 +21,17 @@ class HostelListController extends AbstractController
     }
 
     #[Route('/hostels/list', name: 'app_hostel_list')]
+    // #[IsGranted('ROLE_ADMIN')]
     public function index(): JsonResponse
     {
+        // Check if the user has the ROLE_ADMIN
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            return new JsonResponse([
+                'error' => 'Access Denied',
+                'message' => 'You do not have the necessary permissions to access this resource.'
+            ], JsonResponse::HTTP_FORBIDDEN);
+        }
+        
         $hostels = $this->hostelRepository->findAll();
 
         $data = $this->serializer->serialize($hostels, 
