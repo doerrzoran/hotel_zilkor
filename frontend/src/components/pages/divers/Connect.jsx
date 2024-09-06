@@ -19,7 +19,7 @@ export default function Connect() {
                 console.log(role)
             }
         }
-    }, [data,])
+    }, [data, role])
 
     const handleClick = () => {
         setShowDropdown(!showDropdown)
@@ -27,6 +27,7 @@ export default function Connect() {
 
     const handleLogin = () => {
         navigate('/login');
+        location.reload()
     }
     const handleLogout = () => {
         localStorage.removeItem('jwtToken')

@@ -28,15 +28,15 @@ function App() {
         element: <Layout content =  {<Backoffice/>} />
       },
       {
-        path: 'backoffice/rooms',
+        path: '/backoffice/rooms',
         element: <Rooms/>
       },
       {
-        path: 'backoffice/bookings',
+        path: '/backoffice/bookings',
         element: <Bookings/>
       },
       {
-        path: 'backoffice/hostels',
+        path: '/backoffice/hostels',
         element: <Hostels/>
       },
       {

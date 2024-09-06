@@ -25,11 +25,11 @@ export default function CreateAccount() {
                 const loginResult = await login({ email: formData.email, password: formData.plainPassword }).unwrap();
                 if (loginResult.token) {
                     localStorage.setItem('jwtToken', loginResult.token);
-                    navigate('/'); // Redirect to the home page or any other desired route
+                    navigate('/'); 
                 }
             }
         } catch (err) {
-            // Handle error, display error message
+            alert('echec de l\'inscription')
         }
     };
 
