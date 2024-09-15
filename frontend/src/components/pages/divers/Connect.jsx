@@ -27,7 +27,6 @@ export default function Connect() {
 
     const handleLogin = () => {
         navigate('/login');
-        location.reload()
     }
     const handleLogout = () => {
         localStorage.removeItem('jwtToken')

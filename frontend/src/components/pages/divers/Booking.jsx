@@ -8,7 +8,8 @@ export default function Booking(props) {
     const [book, { isLoading, error, isSuccess }] = usePostBookingMutation();
     const { rooms, arrivalDate, departureDate } = props;
     const [currentPage, setCurrentPage] = useState(1);
-    const roomsPerPage = 10;
+    const roomsPerPage = 3;
+    
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -31,9 +32,9 @@ export default function Booking(props) {
         }
     };
 
-    // useEffect(() => {
-    //     console.log(rooms);
-    // }, [rooms]);
+    useEffect(() => {
+        console.log(rooms);
+    }, [rooms]);
 
     // Calculer les index des chambres à afficher
     const indexOfLastRoom = currentPage * roomsPerPage;
@@ -48,12 +49,20 @@ export default function Booking(props) {
             {rooms ? (
                 <form onSubmit={handleSubmit}>
                     {currentRooms.map((room) => (
-                        <div key={room.roomNumber}>
-                        Chambre {room.roomNumber}
-                        <button onClick={() => setRoom(room.roomNumber)}>
-                            Réserver
-                        </button>
-                    </div>
+                        <div className="roomCard" key={room.roomNumber}>
+                            {/* {room.roomNumber} */}
+                            <img 
+                            src={`/images/${room.image}`} 
+                            alt={room.image} 
+                            onError={(e) => {
+                                console.error("Error loading image:", e.target.src);
+    
+                              }}
+                            />
+                            <button onClick={() => setRoom(room.roomNumber)}>
+                                Réserver
+                            </button>
+                        </div>
                     ))}
                     
                     {/* Pagination */}

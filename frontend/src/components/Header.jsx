@@ -19,10 +19,10 @@ export default function Header() {
             <div id='dropdownMenue'>
                 <img className='menuIcon' src={menu} alt="icone dropdown menue" />
                 <nav className='navDesktop'>
-                    <a href="">acceuil</a>
-                    <a href="">reserver une chambre</a>
-                    <a href="">à propos de nous</a>
-                    <a href="">contacts</a>
+                    <a href="/">Accueil</a>
+                    <a href="#">Réserver une chambre</a>
+                    <a href="#">A propos de nous</a>
+                    <a href="#">Contact</a>
                 </nav>
             </div>
         </header>   

@@ -47,6 +47,7 @@ class RoomSelectionController extends AbstractController
                 $filteredRooms[] = [
                     'id' => $room->getId(),
                     'Hotel' => $room->getHostel()->getId(),
+                    'image' => $room->getImage(),
                     'roomNumber' => $room->getRoomNumber(),
                     'capacity' => $room->getCapacity(),
                     'numberOfBed' => $room->getNumberOfBed(),

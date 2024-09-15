@@ -41,7 +41,7 @@ function App() {
       },
       {
         path: 'new/account',
-        element: <CreateAccount/>
+        element: <Layout content =  {<CreateAccount/>} />
       },
       {
         path: 'login',

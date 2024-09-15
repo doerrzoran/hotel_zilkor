@@ -52,6 +52,9 @@ class Room
     #[Groups('hostel:read')]
     private array $aviability;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
     public function __construct()
     {
         $this->bookings = new ArrayCollection();
@@ -154,6 +157,18 @@ class Room
     public function setAviability(array $aviability): self
     {
         $this->aviability = $aviability;
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
+
         return $this;
     }
 }

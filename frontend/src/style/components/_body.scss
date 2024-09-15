@@ -7,7 +7,9 @@ body {
     margin: 0;
     padding: 0;
     font-size: 1rem;
-  
+    overflow-x: hidden;
+    width: 100%; /* Full width for the body */
+  box-sizing: border-box;
     #root {
       margin: 0;
       padding: 0;

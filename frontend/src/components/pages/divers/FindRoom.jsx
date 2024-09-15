@@ -6,8 +6,8 @@ export default function FindRoom() {
     const [arrivalDate, setArrivalDate] = useState()
     const [departureDate, setDepartureDate] = useState()
     const [hostel, setHostel] = useState(1)
-    const [numberOfGuest, setNumberOfGuest] = useState()
-    const [numberOfBeds, setNumberOfBeds] = useState()
+    const [numberOfGuest, setNumberOfGuest] = useState(1)
+    const [numberOfBeds, setNumberOfBeds] = useState(1)
     const[findRoom, { isLoading, isSuccess}] = usePostFindRoomMutation()
     const { data } = useGetHostelsQuery()
     const [response, setResponse] = useState(null);
@@ -61,7 +61,7 @@ export default function FindRoom() {
                                     departureDate = {departureDate} 
                             />:
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="hostel">choisisser une destination</label>
+                    <label htmlFor="hostel">choisir une destination</label>
                     <select name="hostel" onChange={(event) => setHostel(event.target.value)}>
                         {data && data.map(hostel => (
                             <option key={hostel.id} value={hostel.id} >
@@ -69,7 +69,7 @@ export default function FindRoom() {
                             </option>
                         ))}
                     </select>
-                    <label htmlFor="arrivalDate">arrivé</label>
+                    <label htmlFor="arrivalDate">arrivée</label>
                     <input 
                         type="date" 
                         name="arrivalDate" 
