@@ -140,7 +140,7 @@ header {
     @include mobile() {
       display: flex;
       background-color: $background-color;
-      position: absolute;
+      position: relative;
       justify-content: center;
       align-items: center;
       width: 100%;

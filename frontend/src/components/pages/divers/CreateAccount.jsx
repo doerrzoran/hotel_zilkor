@@ -26,6 +26,7 @@ export default function CreateAccount() {
                 if (loginResult.token) {
                     localStorage.setItem('jwtToken', loginResult.token);
                     navigate('/'); 
+                    location.reload()
                 }
             }
         } catch (err) {

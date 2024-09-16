@@ -1,19 +1,34 @@
-// _body.scss
+
 
 body {
-    background-color: $background-color;
-    background-image: url('#{$background-image}');
-    @include background_image;
+  background-color: $background-color;
+  background-image: url('#{$background-image}');
+  @include background_image;
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  overflow-x: hidden;
+  width: 100vw; /* Utilise vw pour la largeur */
+  height: 100vh; /* Utilise vh pour la hauteur */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column; /* Garantit que le contenu reste bien en colonne */
+  align-items: center; /* Centre le contenu horizontalement */
+  justify-content: center; /* Centre le contenu verticalement */
+  margin: 0;
+  padding: 0;
+  
+  #root {
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
     margin: 0;
     padding: 0;
-    font-size: 1rem;
-    overflow-x: hidden;
-    width: 100%; /* Full width for the body */
-  box-sizing: border-box;
-    #root {
-      margin: 0;
-      padding: 0;
-    }
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+  }
   
     @include desktop() {
       font-size: 1rem;

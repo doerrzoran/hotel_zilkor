@@ -15,8 +15,8 @@ export default function Login() {
     if (result.data && result.data.token) {
       localStorage.setItem('jwtToken', result.data.token);
       // console.log('Token stored:', result.data.token);
-      location.reload()
       navigate('/')
+      location.reload()
     }
   };
 

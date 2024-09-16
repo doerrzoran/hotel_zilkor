@@ -1,32 +1,68 @@
 // _main.scss
 
 main {
-    position:relative;
-    top: 0;          /* Align it to the top of the viewport */
-    left: 0;         /* Align it to the left side of the viewport */
-    width: 100%;     /* Make it take the full width of the viewport */
-    height: 10vh;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150vh;
     display: flex;
     flex-direction: column;
-    // justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    height: 150vh; 
-  
+    color: #f2f1ef;
+    text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.5),
+        0 0 0 #000,
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+    
+    // Base font size
+    font-size: .8vw; // Base size relative to viewport width
+
+    
+
     @include desktop() {
-      height: calc(150vh);
+        height: calc(150vh);
+        font-size: 1vw; // Slightly smaller on very large screens
     }
-  
+
     @include medium() {
-      height: calc(150vh);
+        height: calc(150vh);
+        font-size: 1vw; // Slightly larger on medium screens
     }
-  
+
     @include tablet() {
-      height: calc(150vh);
+        height: calc(150vh);
+        font-size: 1vw; // Larger on tablets
     }
-  
+
     @include mobile() {
-      height: calc(150vh);
+        height: calc(150vh);
+        font-size: 3.5vw; // Largest on mobile for readability
     }
-  }
-  
+
+    // Additional styles for different text elements
+    h1 {
+        font-size: 2em; // This will be relative to the font-size set above
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    p {
+        font-size: 1em; // This will match the font-size set above
+    }
+
+    @include mobile() {
+        h1 {
+            font-size: 1.75em; // Slightly smaller heading for mobile
+        }
+        h2 {
+            font-size: 1.4em;
+        }
+    }
+}
