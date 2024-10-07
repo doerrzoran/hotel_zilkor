@@ -48,6 +48,8 @@ class RoomSelectionController extends AbstractController
                     'id' => $room->getId(),
                     'Hotel' => $room->getHostel()->getId(),
                     'image' => $room->getImage(),
+                    'description' => $room->getDescription(),
+                    'price' => $room->getPrice(),
                     'roomNumber' => $room->getRoomNumber(),
                     'capacity' => $room->getCapacity(),
                     'numberOfBed' => $room->getNumberOfBed(),

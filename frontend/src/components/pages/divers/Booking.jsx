@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
-import { useGetRoomsQuery, usePostBookingMutation } from "../../../slices/ApiSlice";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { usePostBookingMutation } from "../../../slices/ApiSlice";
 
 export default function Booking(props) {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [room, setRoom] = useState(301);
     const [book, { isLoading, error, isSuccess }] = usePostBookingMutation();
     const { rooms, arrivalDate, departureDate } = props;
     const [currentPage, setCurrentPage] = useState(1);
     const roomsPerPage = 3;
     
+    // Maximum number of pages to show
+    const maxPages = 10;
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -20,12 +22,12 @@ export default function Booking(props) {
         };
         try {
             const response = await book(requestData).unwrap();
-            // Gérer le succès ici
-            console.log("Réservation réussie :", response);
+            alert("votre reservation est un success !");
+            navigate('my/booking')
         } catch (err) {
-            // Gérer l'erreur ici
             if (err.status === 401 && err.data?.message === "JWT Token not found") {
-                navigate('login')
+                alert("veuillez vous connecter ou creer un compte pour reserver cette chambre");
+                navigate('login');
             } else {
                 console.error("Erreur lors de la réservation :", err);
             }
@@ -36,45 +38,74 @@ export default function Booking(props) {
         console.log(rooms);
     }, [rooms]);
 
-    // Calculer les index des chambres à afficher
+    // Calculate indexes for current page's rooms
     const indexOfLastRoom = currentPage * roomsPerPage;
     const indexOfFirstRoom = indexOfLastRoom - roomsPerPage;
     const currentRooms = rooms ? rooms.slice(indexOfFirstRoom, indexOfLastRoom) : [];
 
-    // Changer de page
+    // Calculate total pages
+    const totalPages = Math.ceil(rooms.length / roomsPerPage);
+    
+    // Handle page change
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
         <>
             {rooms ? (
                 <form onSubmit={handleSubmit}>
-                    {currentRooms.map((room) => (
-                        <div className="roomCard" key={room.roomNumber}>
-                            {/* {room.roomNumber} */}
-                            <img 
-                            src={`/images/${room.image}`} 
-                            alt={room.image} 
-                            onError={(e) => {
-                                console.error("Error loading image:", e.target.src);
-    
-                              }}
-                            />
-                            <button onClick={() => setRoom(room.roomNumber)}>
-                                Réserver
-                            </button>
-                        </div>
-                    ))}
-                    
-                    {/* Pagination */}
-                    <div>
-                        {Array.from({ length: Math.ceil(rooms.length / roomsPerPage) }, (_, i) => (
-                            <button key={i} onClick={() => paginate(i + 1)}>
-                                {i + 1}
-                            </button>
+                    <div className="roomsContainer">
+                        {currentRooms.map((room) => (
+                            <div className="roomCard" key={room.roomNumber}>
+                                <img
+                                    src={`/images/${room.image}`}
+                                    alt={room.image}
+                                    onError={(e) => {
+                                        console.error("Error loading image:", e.target.src);
+                                    }}
+                                />
+                                <div className="roomInfo">
+                                    <p className="roomDescription">{room.description}</p>
+                                    <p className="roomPrice">{room.price} €</p>
+                                    <button className="reserveButton" onClick={() => setRoom(room.roomNumber)}>
+                                        Réserver
+                                    </button>
+                                </div>
+                            </div>
                         ))}
                     </div>
 
-                    {/* Ajoutez ici les champs pour arrivalDate, departureDate, et le bouton de soumission */}
+                    {/* Pagination */}
+                    <div className="pagination">
+                        {/* "Previous" Button */}
+                        {currentPage > 1 && (
+                            <button className="paginationButton" onClick={() => paginate(currentPage - 1)}>
+                                Précédent
+                            </button>
+                        )}
+
+                        {/* Page Numbers */}
+                        {Array.from(
+                            { length: Math.min(maxPages, totalPages) },
+                            (_, i) => i + 1
+                        ).map((pageNumber) => (
+                            <button
+                                key={pageNumber}
+                                onClick={() => paginate(pageNumber)}
+                                className={`paginationButton ${pageNumber === currentPage ? 'active' : ''}`}
+                            >
+                                {pageNumber}
+                            </button>
+                        ))}
+
+                        {/* "Next" Button */}
+                        {currentPage < totalPages && (
+                            <button className="paginationButton" onClick={() => paginate(currentPage + 1)}>
+                                Suivant
+                            </button>
+                        )}
+                    </div>
+
+                    {/* Add fields for arrivalDate, departureDate, and submission button */}
                 </form>
             ) : (
                 <div>Aucune chambre disponible</div>

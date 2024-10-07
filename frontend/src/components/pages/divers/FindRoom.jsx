@@ -60,34 +60,42 @@ export default function FindRoom() {
                                     arrivalDate = {arrivalDate} 
                                     departureDate = {departureDate} 
                             />:
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor="hostel">choisir une destination</label>
-                    <select name="hostel" onChange={(event) => setHostel(event.target.value)}>
-                        {data && data.map(hostel => (
-                            <option key={hostel.id} value={hostel.id} >
-                                {hostel.city}
-                            </option>
-                        ))}
-                    </select>
-                    <label htmlFor="arrivalDate">arrivée</label>
-                    <input 
-                        type="date" 
-                        name="arrivalDate" 
-                        id="arrivalDate"
-                        min={getTomorrowDate()}
-                        value={arrivalDate}
-                        onChange={(event) => setArrivalDate(event.target.value)}
-                        />
-                    <label htmlFor="departureDate">départ</label>
-                    <input 
-                        type="date" 
-                        name="departureDate" 
-                        id="departureDate"
-                        min={getDayAfterArrivalDate()}
-                        value={departureDate}
-                        onChange={(event) => setDepartureDate(event.target.value)}
-                        />
-                   <label htmlFor="numberOfGuest">Nombre de personnes</label>
+                <form onSubmit={handleSubmit} className="findRoom">
+                    <div>
+                        <label htmlFor="hostel">choisir une destination</label>
+                        <select name="hostel" onChange={(event) => setHostel(event.target.value)}>
+                            {data && data.map(hostel => (
+                                <option key={hostel.id} value={hostel.id} >
+                                    {hostel.city}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div>
+                        <label htmlFor="arrivalDate">arrivée</label>
+                        <input 
+                            type="date" 
+                            name="arrivalDate" 
+                            id="arrivalDate"
+                            min={getTomorrowDate()}
+                            value={arrivalDate}
+                            onChange={(event) => setArrivalDate(event.target.value)}
+                            />
+                    </div>
+                    <div>
+                        <label htmlFor="departureDate">départ</label>
+                        <input 
+                            type="date" 
+                            name="departureDate" 
+                            id="departureDate"
+                            min={getDayAfterArrivalDate()}
+                            value={departureDate}
+                            onChange={(event) => setDepartureDate(event.target.value)}
+                            />
+                    </div>
+                    <div>
+
+                        <label htmlFor="numberOfGuest">Nombre de personnes</label>
                         <select 
                             name="numberOfGuest" 
                             id="numberOfGuest"
@@ -100,20 +108,22 @@ export default function FindRoom() {
                                 </option>
                             ))}
                         </select>
-
-                    <label htmlFor="numberOfBeds">Nombre de lits</label>
-                        <select 
-                            name="numberOfBeds" 
-                            id="numberOfBeds"
-                            value={numberOfBeds}
-                            onChange={(event) => setNumberOfBeds(event.target.value)}
-                            >
-                            {[1, 2, 3, 4].map((value) => (
-                                <option key={value} value={value}>
-                                    {value}
-                                </option>
-                            ))}
-                        </select>
+                    </div>
+                    <div>
+                        <label htmlFor="numberOfBeds">Nombre de lits</label>
+                            <select 
+                                name="numberOfBeds" 
+                                id="numberOfBeds"
+                                value={numberOfBeds}
+                                onChange={(event) => setNumberOfBeds(event.target.value)}
+                                >
+                                {[1, 2, 3, 4].map((value) => (
+                                    <option key={value} value={value}>
+                                        {value}
+                                    </option>
+                                ))}
+                            </select>
+                    </div>
                                     
                     
                     <button type="submit">trouver une chambre</button>

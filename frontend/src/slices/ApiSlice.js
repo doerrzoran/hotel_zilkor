@@ -81,6 +81,13 @@ export const ApiSlice = createApi({
                 body,
             })
         }),
+        postDeleteBooking: builder.mutation({
+            query: (body) => ({
+                url: '/api/delete/booking',
+                method: 'POST',
+                body,
+            })
+        }),
         postFindRoom: builder.mutation({
             query: (body) => ({
                 url: '/room/selection',
@@ -102,5 +109,6 @@ export const {
     usePostRegisterMutation,
     usePostLoginMutation,
     usePostBookingMutation,
-    usePostFindRoomMutation
+    usePostFindRoomMutation,
+    usePostDeleteBookingMutation
 } = ApiSlice;

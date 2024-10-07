@@ -1,8 +1,15 @@
 import { useEffect } from "react";
-import { useGetMyBookingsQuery } from "../../slices/ApiSlice";
+import { useGetMyBookingsQuery, usePostDeleteBookingMutation } from "../../slices/ApiSlice";
 
 export default function User() {
     const {data, isLoading, error } = useGetMyBookingsQuery()
+    const [deleteBooking, { deleteBookingError, isSuccess }]  = usePostDeleteBookingMutation()
+
+    const handleDelete = () => {
+        
+    }
+
+
 
     useEffect(() => {
         console.log(data)
@@ -25,7 +32,8 @@ export default function User() {
                             <p>date arrivé: {booking.arrivalDate}</p>
                             <p>date de départ: {booking.depatureDate}</p>
                             <p>Statut: {booking.isActive ? 'annulé' : 'en cours'}</p>
-                            <button >annuler</button>
+                            <button onClick={ handleDelete(booking.id)}>annuler</button>
+                            <button >detail</button>
                         </div>
                     ))}
                 </div>

@@ -1,0 +1,66 @@
+.findRoom{
+        display: flex;
+        flex-direction: row; /* Aligns the form elements horizontally */
+        flex-wrap: wrap; /* Allows wrapping if needed */
+        justify-content: space-between; /* Distributes space between elements */
+        gap: 10px; /* Adds space between elements */
+        align-items: center; /* Vertically aligns elements */
+    
+    div {
+        display: flex;
+        flex-direction: column; /* Keeps label and input stacked vertically */
+        min-width: 150px; /* Adjust as necessary for responsiveness */
+    }
+    
+    label {
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    
+    select, 
+    input {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+    }
+    
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    button:hover {
+        background-color: #0056b3;
+    }
+    
+    @include desktop() {
+        
+        
+    }
+    
+    @include medium() {
+        
+        
+    }
+    
+    @include tablet() {
+        
+        
+    }
+    
+    @include mobile() {
+        display: block;
+    }
+}
+    
+    
+    
+    
+    
+
+
