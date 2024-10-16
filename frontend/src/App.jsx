@@ -12,6 +12,10 @@ import User from './components/pages/User';
 import NotFound from './components/pages/divers/NotFound';
 import Hostels from './components/backoffice/Hostels';
 import Backoffice from './components/backoffice/Backoffice';
+import Guests from './components/backoffice/Guests';
+import HostelDetail from './components/HostelDetail';
+import AddHostel from './components/backoffice/AddHostel';
+import AboutUs from './components/AboutUs';
 
 
 
@@ -25,23 +29,35 @@ function App() {
       },
       {
         path: 'backoffice',
-        element: <Layout content =  {<Backoffice/>} />
+        element: <Backoffice/>
       },
       {
         path: '/backoffice/rooms',
-        element: <Rooms/>
+        element: <Backoffice content={<Rooms/>} />
       },
       {
         path: '/backoffice/bookings',
-        element: <Bookings/>
+        element: <Backoffice content={<Bookings/>} />
       },
       {
         path: '/backoffice/hostels',
-        element: <Hostels/>
+        element: <Backoffice content={<Hostels/>} />
+      },
+      {
+        path: '/backoffice/guests',
+        element: <Backoffice content={<Guests/>} />
+      },
+      {
+        path: '/backoffice/add/hostel',
+        element: <Backoffice content={<AddHostel/>} />
       },
       {
         path: 'new/account',
         element: <Layout content =  {<CreateAccount/>} />
+      },
+      {
+        path: '/a/propos/de/nous',
+        element: <Layout content =  {<AboutUs/>} />
       },
       {
         path: 'login',
@@ -50,6 +66,10 @@ function App() {
       {
         path: 'my/booking',
         element: <Layout content =  {<User/>} />
+      },
+      {
+        path: '/hostels',
+        element: <Layout content =  {<HostelDetail/>} />
       },
       {
         path: '*',

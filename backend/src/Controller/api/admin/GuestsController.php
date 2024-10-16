@@ -19,7 +19,7 @@ class GuestsController extends AbstractController
         $this->serializer = $serializer;
     }
 
-    #[Route('/guests', name: 'app_guests')]
+    #[Route('/api/backoffice/guests', name: 'app_guests')]
     public function index(): JsonResponse
     {
         $guests = $this->guestRepository->findAll();

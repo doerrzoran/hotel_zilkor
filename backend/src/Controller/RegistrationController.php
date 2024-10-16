@@ -31,12 +31,19 @@ class RegistrationController extends AbstractController
         $guest = new Guest();
         $form = $this->createForm(RegistrationFormType::class, $guest, array('csrf_protection' => false));
 
+        
         // Submit the JSON data to the form
         $form->submit($jsonData);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $email = $form->get('email')->getData();
+
+            $existingGuest = $entityManager->getRepository(Guest::class)->findOneBy(['email' => $email]);
+            if ($existingGuest) {
+                return new JsonResponse(['message' => 'Cet email est déjà utilisé.'], 400);
+            }
+
             $password = $guestPasswordHasher->hashPassword(
                 $guest,
                 $form->get('plainPassword')->getData()

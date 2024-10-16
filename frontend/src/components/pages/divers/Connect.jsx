@@ -5,7 +5,6 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export default function Connect() {
     const { data, error, isLoading, refetch } = useGetMeQuery()
-    const [showDropdown, setShowDropdown] = useState(false);
     const [username, setUsername] = useState()
     const [role, setRole] = useState('')
     const isAdmin = role.includes("ROLE_ADMIN")
@@ -21,9 +20,6 @@ export default function Connect() {
         }
     }, [data, role])
 
-    const handleClick = () => {
-        setShowDropdown(!showDropdown)
-    }
 
     const handleLogin = () => {
         navigate('/login');
@@ -31,6 +27,7 @@ export default function Connect() {
     const handleLogout = () => {
         localStorage.removeItem('jwtToken')
         location.reload()
+        navigate('/')
     }
 
     const handleRegister = () => {
@@ -39,16 +36,16 @@ export default function Connect() {
 
     return(
         <>
-            <button className='Login' onClick={handleClick}>
+            <button className='Login'>
                 <img className='accountIcon' src={account} alt="accountIcon" />
                 <div className='user'>
                     {
-                        error ? <p>connexion</p> : 
+                        error ? <p>connection</p> : 
                         username
                     }
                 </div>
                 </button>
-                {showDropdown && (
+                
                 <div id='dropdownConnect'>
                     {
                         error ?
@@ -64,13 +61,13 @@ export default function Connect() {
                         </>
                         :
                         <>
-                            <a href="my/booking">vos reservations</a>
+                            <a href="/my/booking">vos reservations</a>
                             <button onClick={handleLogout}>Logout</button>
                         </>
                         }
                 </div>
 
-                )}
+                
         </>         
     )
 }

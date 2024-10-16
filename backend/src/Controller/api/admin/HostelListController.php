@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\api\admin;
 
 use App\Repository\HostelRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +20,7 @@ class HostelListController extends AbstractController
         $this->serializer = $serializer;
     }
 
-    #[Route('/hostels/list', name: 'app_hostel_list')]
+    #[Route('/api/backoffice/hostels/list', name: 'app_hostel_list')]
     // #[IsGranted('ROLE_ADMIN')]
     public function index(): JsonResponse
     {

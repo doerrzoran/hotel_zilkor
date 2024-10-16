@@ -17,7 +17,7 @@ class RoomsController extends AbstractController
         $this->roomRepository = $roomRepository;
     }
 
-    #[Route('api/backoffice/rooms', name: 'app_admin_rooms')]
+    #[Route('/api/backoffice/rooms', name: 'app_admin_rooms')]
     #[IsGranted('ROLE_ADMIN')]
     public function index(): JsonResponse
     {

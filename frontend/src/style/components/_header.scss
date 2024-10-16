@@ -1,6 +1,7 @@
 // _header.scss
 
 header {
+    color: $base-font-color;
     position: relative;
     top: 0;
     width: 100%;
@@ -30,37 +31,83 @@ header {
       display: flex;
       align-items: center;
       cursor: pointer;
-  
+      background-color: rgba(255, 255, 255, 0.3); // Fond semi-transparent
+      padding: 8px 12px; // Ajout de padding pour un meilleur aspect
+      border-radius: 4px; // Coins arrondis
+      transition: background-color 0.3s ease; // Transition douce
+    
       img.accountIcon {
         margin-right: 8px;
         width: 2rem;
         height: 2rem;
       }
-  
+    
       p.user {
         margin: 0;
+        color: #000; // Couleur du texte, ajustez selon vos besoins
+      }
+    
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1); // Plus transparent au survol
+        & + #dropdownConnect{
+          display: flex;
+        }
       }
     }
   
     #dropdownConnect {
-      display: flex;
+      display: none;
       flex-direction: column;
       position: absolute;
       top: 70px;
       right: 20px;
-      background-color: $color-primary;
-      padding: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      border-radius: 10%;
+      padding: 15px;
+      background-color: #ffffff; // Fond blanc pour un meilleur contraste
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Ombre plus douce
+      border-radius: 8px; // Coins arrondis mais moins extrêmes
+      min-width: 200px; // Largeur minimale pour assurer la lisibilité
+      z-index: 1000; // Assure que le dropdown est au-dessus des autres éléments
+      
+      &:hover {
+        display: flex; // Keep displayed when hovered
+      }
+      
+      button {
+        margin: 5px 0; // Espace entre les boutons
+        padding: 10px 15px; // Plus de padding pour une meilleure zone de clic
+        border: none;
+        background-color: #f0f0f0; // Couleur de fond légère pour les boutons
+        color: #333333; // Couleur de texte foncée pour un bon contraste
+        font-size: 16px; // Taille de police lisible
+        line-height: 1.5; // Meilleur espacement des lignes
+        text-align: left; // Alignement à gauche pour une meilleure lisibilité
+        cursor: pointer;
+        transition: background-color 0.3s ease; // Transition douce pour le hover
+    
+        &:hover, &:focus {
+          background-color: #e0e0e0; // Couleur légèrement plus foncée au hover/focus
+          outline: 2px solid #007bff; // Contour visible pour le focus (accessibilité)
+        }
+    
+        &:first-child {
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+        }
+    
+        &:last-child {
+          border-bottom-left-radius: 8px;
+          border-bottom-right-radius: 8px;
+        }
+      }
     }
-
+    
     .navDesktop {
         display: flex;
         justify-content: space-between;
         align-items: center;
         a {
             text-decoration: none;
-            color: black;
+            color: $base-font-color
         }
         height: 2rem;
         padding: 0 15% 0 15%;
@@ -165,6 +212,8 @@ header {
       }
   
       .navDesktop {
+        background-color: $background-color;
+
         display: none;
         position: absolute;
         top: 100%;
@@ -174,7 +223,9 @@ header {
         padding: 10px;
         flex-direction: column;
         align-items: flex-start;
+        z-index: 9999;
         a {
+          background-color: $background-color;
           font-size: 1.5rem;
           display: block;
           color: #333;

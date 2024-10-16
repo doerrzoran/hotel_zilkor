@@ -1,3 +1,12 @@
+@font-face {
+  font-family: 'Cinzel';
+  src: url('../assets/font_styles/Cinzel-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  color:#FFD700;
+}
+
+
 @mixin background_image (){
     background-repeat: no-repeat;
     background-position: center center;

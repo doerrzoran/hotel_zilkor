@@ -40,19 +40,36 @@ export const ApiSlice = createApi({
                 url: 'api/backoffice/rooms',
             })
         }),
+        getHostelsList: builder.query({
+            query: () => ({
+                url: '/api/backoffice/hostels/list',
+            })
+        }),
+        getBookings: builder.query({
+            query: () => ({
+                url: '/api/backoffice/booking/list',
+            })
+        }),
+        getGuests: builder.query({
+            query: () => ({
+                url: '/api/backoffice/guests',
+            })
+        }),
+        postAddHostel: builder.mutation({
+            query: (body) => ({
+                url: '/api/backoffice/add/hostel',
+                method: 'POST',
+                body,
+            })
+        }),
         getHostels: builder.query({
             query: () => ({
                 url: '/hostels',
             })
         }),
-        getHostelsList: builder.query({
+        getHostelDetail: builder.query({
             query: () => ({
-                url: '/hostels/list',
-            })
-        }),
-        getBookings: builder.query({
-            query: () => ({
-                url: '/booking/list',
+                url: '/hostel/detail',
             })
         }),
         getRoomAviability: builder.query({
@@ -81,10 +98,10 @@ export const ApiSlice = createApi({
                 body,
             })
         }),
-        postDeleteBooking: builder.mutation({
+        deleteBooking: builder.mutation({
             query: (body) => ({
                 url: '/api/delete/booking',
-                method: 'POST',
+                method: 'DELETE',
                 body,
             })
         }),
@@ -110,5 +127,8 @@ export const {
     usePostLoginMutation,
     usePostBookingMutation,
     usePostFindRoomMutation,
-    usePostDeleteBookingMutation
+    useDeleteBookingMutation,
+    useGetGuestsQuery,
+    useGetHostelDetailQuery,
+    usePostAddHostelMutation
 } = ApiSlice;

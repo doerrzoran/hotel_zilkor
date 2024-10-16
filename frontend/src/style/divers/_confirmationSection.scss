@@ -1,0 +1,51 @@
+.confirmationSection {
+    background-color: #f9f9f9;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.confirmationSection h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.confirmationSection p {
+    font-size: 1.1em;
+    color: #555;
+    margin: 8px 0;
+}
+
+.confirmButton, .cancelButton {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.confirmButton {
+    background-color: #28a745; /* Green for confirmation */
+    color: white;
+}
+
+.confirmButton:hover {
+    background-color: #218838;
+}
+
+.cancelButton {
+    background-color: #dc3545; /* Red for cancellation */
+    color: white;
+}
+
+.cancelButton:hover {
+    background-color: #c82333;
+}

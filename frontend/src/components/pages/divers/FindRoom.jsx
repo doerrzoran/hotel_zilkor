@@ -55,24 +55,33 @@ export default function FindRoom() {
 
     return(
         <>
-            {
-                isSuccess ? <Booking rooms = {response} 
-                                    arrivalDate = {arrivalDate} 
-                                    departureDate = {departureDate} 
-                            />:
+        {
+            isSuccess ? (
+                <Booking 
+                    rooms={response} 
+                    arrivalDate={arrivalDate} 
+                    departureDate={departureDate} 
+                />
+            ) : (
                 <form onSubmit={handleSubmit} className="findRoom">
+                    
                     <div>
-                        <label htmlFor="hostel">choisir une destination</label>
-                        <select name="hostel" onChange={(event) => setHostel(event.target.value)}>
+                        <label htmlFor="hostel">Choisir une destination</label>
+                        <select 
+                            name="hostel" 
+                            onChange={(event) => setHostel(event.target.value)} 
+                            aria-label="Choisir une destination"
+                        >
                             {data && data.map(hostel => (
-                                <option key={hostel.id} value={hostel.id} >
+                                <option key={hostel.id} value={hostel.id}>
                                     {hostel.city}
                                 </option>
                             ))}
                         </select>
                     </div>
+                    
                     <div>
-                        <label htmlFor="arrivalDate">arrivée</label>
+                        <label htmlFor="arrivalDate">Arrivée</label>
                         <input 
                             type="date" 
                             name="arrivalDate" 
@@ -80,10 +89,12 @@ export default function FindRoom() {
                             min={getTomorrowDate()}
                             value={arrivalDate}
                             onChange={(event) => setArrivalDate(event.target.value)}
-                            />
+                            aria-label="Date d'arrivée"
+                        />
                     </div>
+    
                     <div>
-                        <label htmlFor="departureDate">départ</label>
+                        <label htmlFor="departureDate">Départ</label>
                         <input 
                             type="date" 
                             name="departureDate" 
@@ -91,17 +102,19 @@ export default function FindRoom() {
                             min={getDayAfterArrivalDate()}
                             value={departureDate}
                             onChange={(event) => setDepartureDate(event.target.value)}
-                            />
+                            aria-label="Date de départ"
+                        />
                     </div>
+    
                     <div>
-
                         <label htmlFor="numberOfGuest">Nombre de personnes</label>
                         <select 
                             name="numberOfGuest" 
                             id="numberOfGuest"
                             value={numberOfGuest}
                             onChange={(event) => setNumberOfGuest(event.target.value)}
-                            >
+                            aria-label="Nombre de personnes"
+                        >
                             {[1, 2, 3, 4].map((value) => (
                                 <option key={value} value={value}>
                                     {value}
@@ -109,26 +122,31 @@ export default function FindRoom() {
                             ))}
                         </select>
                     </div>
+    
                     <div>
                         <label htmlFor="numberOfBeds">Nombre de lits</label>
-                            <select 
-                                name="numberOfBeds" 
-                                id="numberOfBeds"
-                                value={numberOfBeds}
-                                onChange={(event) => setNumberOfBeds(event.target.value)}
-                                >
-                                {[1, 2, 3, 4].map((value) => (
-                                    <option key={value} value={value}>
-                                        {value}
-                                    </option>
-                                ))}
-                            </select>
+                        <select 
+                            name="numberOfBeds" 
+                            id="numberOfBeds"
+                            value={numberOfBeds}
+                            onChange={(event) => setNumberOfBeds(event.target.value)}
+                            aria-label="Nombre de lits"
+                        >
+                            {[1, 2, 3, 4].map((value) => (
+                                <option key={value} value={value}>
+                                    {value}
+                                </option>
+                            ))}
+                        </select>
                     </div>
-                                    
                     
-                    <button type="submit">trouver une chambre</button>
+                    <div className="buttonContainer">
+                        <button type="submit">Trouver une chambre</button>
+                    </div>
                 </form>
-            }
-        </>
+            )
+        }
+    </>
+    
     )
 }

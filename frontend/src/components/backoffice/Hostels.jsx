@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useGetHostelsListQuery } from "../../slices/ApiSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Backoffice from "./Backoffice";
 
 export default function Hostels() {
@@ -29,7 +29,7 @@ export default function Hostels() {
 
     return (
         <div>
-            <Backoffice/>
+            <Link to="/backoffice/add/hostel">ajouter un hotel</Link>
             {selectedHostelId ? (
                 <div className="rooms-container">
                     {rooms.map(room => (

@@ -18,7 +18,7 @@ class BookingListController extends AbstractController
         $this->serializer = $serializer;
     }
 
-    #[Route('/booking/list', name: 'app_booking_list')]
+    #[Route('/api/backoffice/booking/list', name: 'app_booking_list')]
     public function index(): JsonResponse
     {
         $bookings = $this->bookingRepository->findAll();

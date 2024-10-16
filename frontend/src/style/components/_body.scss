@@ -3,6 +3,8 @@
 body {
   background-color: $background-color;
   background-image: url('#{$background-image}');
+  font-family: $base-font-family;
+  
   @include background_image;
   margin: 0;
   padding: 0;
