@@ -1,0 +1,46 @@
+.booking-container {
+    display: flex;
+    flex-direction: column; /* Ensures that cards are stacked vertically */
+    align-items: center; /* Centers the cards horizontally */
+    gap: 20px; /* Adds space between the cards */
+    padding: 20px; /* Adds padding around the container */
+    width: 100%; /* Ensure it takes full width */
+
+    .booking-card {
+        background-color: #f9f9f9; /* Light background for the card */
+        border: 1px solid #e0e0e0; /* Soft border to define the card */
+        border-radius: 8px; /* Slight rounding of corners */
+        padding: 20px; /* Inner padding for the card content */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds shadow for a card effect */
+        width: 100%; /* Make sure the card stretches horizontally */
+        max-width: 500px; /* Limit the width of the card */
+        
+        p {
+            margin: 10px 0; /* Adds space between text elements */
+        }
+
+        div {
+            display: flex;
+            justify-content: space-between; /* Buttons will be spaced out */
+            margin-top: 15px; /* Adds space between the text and buttons */
+        }
+        
+        .cancelButton {
+            background-color: #dc3545; /* Red for cancellation */
+            color: white;
+        }
+
+        button {
+            background-color: #007bff; /* Button background color */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #0056b3; /* Darker shade on hover */
+            }
+        }
+    }
+}

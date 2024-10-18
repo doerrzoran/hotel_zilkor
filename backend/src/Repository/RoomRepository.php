@@ -16,6 +16,24 @@ class RoomRepository extends ServiceEntityRepository
         parent::__construct($registry, Room::class);
     }
 
+    public function findAvailableRooms(int $hostelId, int $capacity, int $numberOfBeds)
+    {
+        $result = $this->createQueryBuilder('r')
+            ->andWhere('r.hostel = :hostelId')
+            ->andWhere('r.capacity >= :capacity')
+            ->andWhere('r.numberOfBed >= :numberOfBeds')
+            ->andWhere('r.isAvialable = true')
+            ->setParameter('hostelId', $hostelId)
+            ->setParameter('capacity', $capacity)
+            ->setParameter('numberOfBeds', $numberOfBeds)
+            ->getQuery()
+            ->getResult();
+
+            // error_log('findAvailableRooms result: ' . print_r($result, true));
+
+    return $result;
+    }
+
     //    /**
     //     * @return Room[] Returns an array of Room objects
     //     */

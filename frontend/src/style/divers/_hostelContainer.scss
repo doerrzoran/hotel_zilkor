@@ -1,0 +1,45 @@
+.hostelContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; /* Espace entre les cartes */
+    max-width: 1000px; /* Largeur maximale du conteneur */
+    // margin: 0 auto; /* Centrer le conteneur */
+    // padding: 1rem; /* Espacement interne */
+  }
+  
+  .hostelCard {
+    display: flex;
+    flex-direction: column; /* Disposition verticale */
+    background-color: #f8f8f8; /* Couleur de fond */
+    border-radius: 10px; /* Coins arrondis */
+    overflow: hidden; /* Masquer le débordement */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre portée */
+    transition: transform 0.3s ease; /* Animation au survol */
+    font-weight: bold;
+  }
+  
+  .hostelCard:hover {
+    transform: translateY(-5px); /* Effet de survol */
+  }
+  
+  .hostelCard img {
+    width: 100%; /* Largeur complète */
+    height: auto; /* Hauteur automatique pour conserver le ratio d'aspect */
+  }
+  
+  .hostelCard p {
+    padding: 1rem; /* Espacement interne pour les paragraphes */
+    margin: 0; /* Suppression des marges par défaut */
+  }
+  
+  .hostelCard p:first-of-type {
+    font-size: 1.2rem; /* Taille de police pour le nom de la ville */
+    font-weight: bold; /* Gras pour le nom de la ville */
+    color: #333; /* Couleur du texte */
+  }
+  
+  .hostelCard p:last-of-type {
+    font-size: 1rem; /* Taille de police pour la description */
+    color: #666; /* Couleur du texte pour la description */
+  }
+  

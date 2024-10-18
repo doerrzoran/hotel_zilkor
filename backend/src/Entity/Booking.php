@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\BookingRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 #[ORM\Entity(repositoryClass: BookingRepository::class)]
 class Booking
@@ -14,9 +16,6 @@ class Booking
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'bookings')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $guest = null;
 
     #[ORM\ManyToOne(inversedBy: 'bookings')]
     #[ORM\JoinColumn(nullable: false)]
@@ -26,27 +25,31 @@ class Booking
     private ?\DateTimeInterface $arrivalDate = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $depatureDate = null;
+    private ?\DateTimeInterface $departureDate = null;
 
     #[ORM\Column]
     private array $bookingPeriod = [];
+
+    #[ORM\ManyToOne(inversedBy: 'bookings')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Guest $guest = null;
+
+    #[ORM\Column]
+    #[Gedmo\Timestampable(on: 'create')]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column]
+    #[Gedmo\Timestampable(on: 'update')]
+    private ?\DateTimeImmutable $UpdatedAt = null;
+
+    #[ORM\Column]
+    private ?bool $isActive = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getGuest(): ?User
-    {
-        return $this->guest;
-    }
-
-    public function setGuest(?User $guest): static
-    {
-        $this->guest = $guest;
-
-        return $this;
-    }
 
     public function getRoom(): ?Room
     {
@@ -72,14 +75,14 @@ class Booking
         return $this;
     }
 
-    public function getDepatureDate(): ?\DateTimeInterface
+    public function getdepartureDate(): ?\DateTimeInterface
     {
-        return $this->depatureDate;
+        return $this->departureDate;
     }
 
-    public function setDepatureDate(\DateTimeInterface $depatureDate): static
+    public function setdepartureDate(\DateTimeInterface $departureDate): static
     {
-        $this->depatureDate = $depatureDate;
+        $this->departureDate = $departureDate;
 
         return $this;
     }
@@ -92,6 +95,54 @@ class Booking
     public function setBookingPeriod(array $bookingPeriod): static
     {
         $this->bookingPeriod = $bookingPeriod;
+
+        return $this;
+    }
+
+    public function getGuest(): ?Guest
+    {
+        return $this->guest;
+    }
+
+    public function setGuest(?Guest $guest): static
+    {
+        $this->guest = $guest;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->UpdatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $UpdatedAt): static
+    {
+        $this->UpdatedAt = $UpdatedAt;
+
+        return $this;
+    }
+
+    public function isActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setActive(bool $isActive): static
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }

@@ -5,7 +5,10 @@ namespace App\Entity;
 use App\Repository\HostelRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: HostelRepository::class)]
 class Hostel
@@ -13,28 +16,45 @@ class Hostel
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('hostel:read')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $location = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?User $manager = null;
-
     /**
      * @var Collection<int, Room>
      */
     #[ORM\OneToMany(targetEntity: Room::class, mappedBy: 'hostel', orphanRemoval: true)]
+    #[Groups('hostel:read')]
     private Collection $rooms;
 
     #[ORM\Column(length: 255)]
+    #[Groups('hostel:read')]
     private ?string $city = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('hostel:read')]
     private ?string $country = null;
 
     #[ORM\Column]
+    #[Groups('hostel:read')]
     private ?int $numberOfRooms = null;
+
+    #[ORM\OneToOne(inversedBy: 'hostel', cascade: ['persist', 'remove'])]
+    #[Groups('hostel:read')]
+    private ?Manager $manager = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('hostel:read')]
+    #[Gedmo\Slug(fields: ['city'])]
+    private ?string $slug = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
 
     public function __construct()
     {
@@ -54,18 +74,6 @@ class Hostel
     public function setLocation(string $location): static
     {
         $this->location = $location;
-
-        return $this;
-    }
-
-    public function getManager(): ?User
-    {
-        return $this->manager;
-    }
-
-    public function setManager(?User $manager): static
-    {
-        $this->manager = $manager;
 
         return $this;
     }
@@ -132,6 +140,54 @@ class Hostel
     public function setNumberOfRooms(int $numberOfRooms): static
     {
         $this->numberOfRooms = $numberOfRooms;
+
+        return $this;
+    }
+
+    public function getManager(): ?Manager
+    {
+        return $this->manager;
+    }
+
+    public function setManager(?Manager $manager): static
+    {
+        $this->manager = $manager;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): static
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hostel index{% endblock %}
+
+{% block body %}
+    <h1>Hostel index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Location</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>NumberOfRooms</th>
+                <th>Slug</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for hostel in hostels %}
+            <tr>
+                <td>{{ hostel.id }}</td>
+                <td>{{ hostel.location }}</td>
+                <td>{{ hostel.city }}</td>
+                <td>{{ hostel.country }}</td>
+                <td>{{ hostel.numberOfRooms }}</td>
+                <td>{{ hostel.slug }}</td>
+                <td>{{ hostel.description }}</td>
+                <td>{{ hostel.image }}</td>
+                <td>
+                    <a href="{{ path('app_hostel_crud_show', {'id': hostel.id}) }}">show</a>
+                    <a href="{{ path('app_hostel_crud_edit', {'id': hostel.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_hostel_crud_new') }}">Create new</a>
+{% endblock %}

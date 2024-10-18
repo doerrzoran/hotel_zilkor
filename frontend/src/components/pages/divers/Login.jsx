@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { usePostLoginMutation } from '../../../slices/ApiSlice';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,6 +8,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [login, { isLoading, error, isSuccess }] = usePostLoginMutation();
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -16,13 +17,21 @@ export default function Login() {
       localStorage.setItem('jwtToken', result.data.token);
       // console.log('Token stored:', result.data.token);
       navigate('/')
+      location.reload()
     }
   };
 
+  useEffect(() => {
+    if (error) {
+      setErrorMessage('identifiant ou mot de passe invalide');
+    }
+  }, [error]);
+  
   return (
-    <div>
-      {
-         isSuccess ? <div>success</div> :
+    <article className='formContainer'>
+      
+      {error && <p>{error.error}</p>}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
         <input
@@ -46,9 +55,8 @@ export default function Login() {
           {isLoading ? 'Loading...' : 'Login'}
         </button>
 
-        {error && <p>{error.error}</p>}
       </form>
-      }
-    </div>
+      
+    </article>
   );
 }

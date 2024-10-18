@@ -1,0 +1,253 @@
+// _header.scss
+
+header {
+    color: $base-font-color;
+    position: relative;
+    top: 0;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    box-sizing: border-box; /* Ensures padding is included in the width calculation */
+    padding: 10px 0; 
+    margin: 0;
+    
+  
+    .logo {
+      border-radius: 50%;
+      overflow: hidden;
+      margin-top: 0%;
+    }
+  
+    .menuIcon {
+      position: absolute;
+      left: 20px;
+    }
+  
+    .Login {
+      position: absolute;
+      top: 30px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      background-color: rgba(255, 255, 255, 0.3); // Fond semi-transparent
+      padding: 8px 12px; // Ajout de padding pour un meilleur aspect
+      border-radius: 4px; // Coins arrondis
+      transition: background-color 0.3s ease; // Transition douce
+    
+      img.accountIcon {
+        margin-right: 8px;
+        width: 2rem;
+        height: 2rem;
+      }
+    
+      p.user {
+        margin: 0;
+        color: #000; // Couleur du texte, ajustez selon vos besoins
+      }
+    
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1); // Plus transparent au survol
+        & + #dropdownConnect{
+          display: flex;
+        }
+      }
+    }
+  
+    #dropdownConnect {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      padding: 15px;
+      background-color: #ffffff; // Fond blanc pour un meilleur contraste
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Ombre plus douce
+      border-radius: 8px; // Coins arrondis mais moins extrêmes
+      min-width: 200px; // Largeur minimale pour assurer la lisibilité
+      z-index: 1000; // Assure que le dropdown est au-dessus des autres éléments
+      
+      &:hover {
+        display: flex; // Keep displayed when hovered
+      }
+      
+      button {
+        margin: 5px 0; // Espace entre les boutons
+        padding: 10px 15px; // Plus de padding pour une meilleure zone de clic
+        border: none;
+        background-color: #f0f0f0; // Couleur de fond légère pour les boutons
+        color: #333333; // Couleur de texte foncée pour un bon contraste
+        font-size: 16px; // Taille de police lisible
+        line-height: 1.5; // Meilleur espacement des lignes
+        text-align: left; // Alignement à gauche pour une meilleure lisibilité
+        cursor: pointer;
+        transition: background-color 0.3s ease; // Transition douce pour le hover
+    
+        &:hover, &:focus {
+          background-color: #e0e0e0; // Couleur légèrement plus foncée au hover/focus
+          outline: 2px solid #007bff; // Contour visible pour le focus (accessibilité)
+        }
+    
+        &:first-child {
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+        }
+    
+        &:last-child {
+          border-bottom-left-radius: 8px;
+          border-bottom-right-radius: 8px;
+        }
+      }
+    }
+    
+    .navDesktop {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        a {
+            text-decoration: none;
+            color: $base-font-color
+        }
+        height: 2rem;
+        padding: 0 15% 0 15%;
+        background-color: $color-primary;
+    }
+  
+    @include desktop() {
+      .logo {
+        width: 150px;
+        height: 70px;
+      }
+  
+      .menuIcon {
+        display: none;
+      }
+  
+      #dropdownIcon {
+        position: fixed;
+        top: 0;
+        right: 0;
+  
+        img {
+          width: 30px;
+          height: auto;
+          margin: 10px;
+        }
+      }
+      
+    }
+  
+    @include medium() {
+      .logo {
+        width: 100px;
+        height: 50px;
+      }
+  
+      .menuIcon {
+        display: none;
+      }
+  
+      #dropdownIcon {
+        position: fixed;
+        top: 0;
+        right: 0;
+  
+        img {
+          width: 30px;
+          height: auto;
+          margin: 10px;
+        }
+      }
+    }
+  
+    @include tablet() {
+      .logo {
+        width: 150px;
+        height: 70px;
+      }
+  
+      .menuIcon {
+        display: none;
+      }
+  
+      #dropdownIcon {
+        position: fixed;
+        top: 0;
+        right: 0;
+  
+        img {
+          width: 30px;
+          height: auto;
+          margin: 10px;
+        }
+      }
+    }
+  
+    @include mobile() {
+      display: flex;
+      background-color: $background-color;
+      position: relative;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 6rem;
+      padding-top: 1rem;
+  
+      .logo {
+        width: 70px;
+        height: 50px;
+      }
+  
+      .Login p {
+        display: none;
+      }
+  
+      .menuIcon {
+        width: 50px;
+        height: 50px;
+        display: block;
+        cursor: pointer;
+        padding-bottom: 10px;
+      }
+  
+      .navDesktop {
+        background-color: $background-color;
+
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: $background-color;
+        padding: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+        z-index: 9999;
+        a {
+          background-color: $background-color;
+          font-size: 1.5rem;
+          display: block;
+          color: #333;
+          text-decoration: none;
+          width: 100%;
+          text-align: left;
+          padding-left: 2%;
+          padding-bottom: 2%;
+          border-bottom: solid;
+          border-bottom-style: double;
+          height: 3rem;
+          &:hover {
+            background-color: beige;
+          }
+        }
+      }
+  
+      .menuIcon:hover + .navDesktop,
+      .navDesktop:hover {
+        display: flex;
+        text-decoration: none;
+      }
+    }
+  }
+  

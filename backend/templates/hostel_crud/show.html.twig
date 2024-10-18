@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hostel{% endblock %}
+
+{% block body %}
+    <h1>Hostel</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ hostel.id }}</td>
+            </tr>
+            <tr>
+                <th>Location</th>
+                <td>{{ hostel.location }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ hostel.city }}</td>
+            </tr>
+            <tr>
+                <th>Country</th>
+                <td>{{ hostel.country }}</td>
+            </tr>
+            <tr>
+                <th>NumberOfRooms</th>
+                <td>{{ hostel.numberOfRooms }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ hostel.slug }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ hostel.description }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ hostel.image }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_hostel_crud_index') }}">back to list</a>
+
+    <a href="{{ path('app_hostel_crud_edit', {'id': hostel.id}) }}">edit</a>
+
+    {{ include('hostel_crud/_delete_form.html.twig') }}
+{% endblock %}

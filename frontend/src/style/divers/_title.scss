@@ -1,0 +1,19 @@
+.title {
+    color: $background-color; /* Couleur du texte */
+    font-size: 2em; /* Taille de police plus grande pour le titre */
+    font-weight: bold; /* Met le texte en gras */
+    text-shadow: 
+        1px 1px 2px rgba(0, 0, 0, 0.3), /* Ombre décalée vers la droite et vers le bas */
+        -1px -1px 2px rgba(255, 255, 255, 0.8); /* Ombre décalée vers la gauche et vers le haut */
+    margin: 20px 0; /* Espace au-dessus et en dessous du titre */
+    padding: 10px; /* Espace autour du texte */
+    // background-color: rgba(255, 255, 255, 0.8); /* Fond légèrement opaque */
+    // border: 2px solid #007bff; /* Bordure bleue autour du titre */
+    border-radius: 5px; /* Coins arrondis pour un aspect doux */
+}
+
+/* Optionnel : Ajouter des styles de survol pour interactivité */
+.title:hover {
+    color: #007bff; /* Change la couleur au survol */
+    cursor: pointer; /* Change le curseur pour indiquer l'interaction */
+}

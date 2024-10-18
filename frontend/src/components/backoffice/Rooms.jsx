@@ -1,14 +1,11 @@
 import React, { useEffect } from "react";
 import { useGetRoomsQuery } from "../../slices/ApiSlice";
 
+
 export default function Rooms() {
     const { data, isLoading, error } = useGetRoomsQuery();
+   
 
-    useEffect(() => {
-        console.log('isLoading:', isLoading);
-        console.log('error:', error);
-        console.log('data:', data);
-    }, [data, isLoading, error]);
 
     return (
         <>
@@ -24,8 +21,9 @@ export default function Rooms() {
                                     <div key={room.id} className="room-card">
                                         <h3> {room.roomNumber}</h3>
                                         <p>Capacité: {room.capacity}</p>
-                                        <p>Nuombre de lits: {room.numberOfBed}</p>
+                                        <p>Nombre de lits: {room.numberOfBed}</p>
                                         <p>Statu: {room.isAvailable ? 'libre' : 'occupé'}</p>
+                                        <button >detail</button>
                                     </div>
                                 ))}
                             </div>

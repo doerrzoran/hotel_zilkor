@@ -25,24 +25,61 @@ export const ApiSlice = createApi({
     reducerPath: 'Api',
     baseQuery: baseQueryWithReauth,
     endpoints: (builder) => ({
-        getHome: builder.query({
+        getMe: builder.query({
             query: () => ({
-                url: '',
+                url: '/api/me',
+            })
+        }),
+        getMyBookings: builder.query({
+            query: () => ({
+                url: '/api/guest/bookings',
             })
         }),
         getRooms: builder.query({
             query: () => ({
-                url: '/rooms',
+                url: 'api/backoffice/rooms',
             })
         }),
-        getRegister: builder.query({
+        getHostelsList: builder.query({
             query: () => ({
-                url: '/register',
+                url: '/api/backoffice/hostels/list',
+            })
+        }),
+        getBookings: builder.query({
+            query: () => ({
+                url: '/api/backoffice/booking/list',
+            })
+        }),
+        getGuests: builder.query({
+            query: () => ({
+                url: '/api/backoffice/guests',
+            })
+        }),
+        postAddHostel: builder.mutation({
+            query: (body) => ({
+                url: '/api/backoffice/add/hostel',
+                method: 'POST',
+                body,
+            })
+        }),
+        getHostels: builder.query({
+            query: () => ({
+                url: '/hostels',
+            })
+        }),
+        getHostelDetail: builder.query({
+            query: () => ({
+                url: '/hostel/detail',
+            })
+        }),
+        getRoomAviability: builder.query({
+            query: (id) => ({
+                url: `room/aviability/${id}`,
             })
         }),
         postRegister: builder.mutation({
             query: (body) => ({
-                url: 'register',
+                url: 'api/register',
                 method: 'POST',
                 body,
             })
@@ -54,20 +91,44 @@ export const ApiSlice = createApi({
                 body,
             })
         }),
-        getMe: builder.query({
-            query: () => ({
-                url: '/api/me',
+        postBooking: builder.mutation({
+            query: (body) => ({
+                url: '/api/booking',
+                method: 'POST',
+                body,
             })
-        })
+        }),
+        deleteBooking: builder.mutation({
+            query: (body) => ({
+                url: '/api/delete/booking',
+                method: 'DELETE',
+                body,
+            })
+        }),
+        postFindRoom: builder.mutation({
+            query: (body) => ({
+                url: '/room/selection',
+                method: 'POST',
+                body,
+            })
+        }),
     })
 })
 
 // Export hooks for usage in functional components, which are auto-generated based on the defined endpoints
 export const {
-    useGetHomeQuery,
     useGetRoomsQuery,
-    useGetRegisterQuery,
+    useGetHostelsQuery,
+    useGetHostelsListQuery,
+    useGetBookingsQuery,
+    useGetMeQuery,
+    useGetMyBookingsQuery,
     usePostRegisterMutation,
     usePostLoginMutation,
-    useGetMeQuery
+    usePostBookingMutation,
+    usePostFindRoomMutation,
+    useDeleteBookingMutation,
+    useGetGuestsQuery,
+    useGetHostelDetailQuery,
+    usePostAddHostelMutation
 } = ApiSlice;

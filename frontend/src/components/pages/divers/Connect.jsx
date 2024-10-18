@@ -1,23 +1,25 @@
 import account from '../../../assets/images/bouton-de-compte-rond-avec-lutilisateur-a-linterieur.png'
 import { useEffect, useState } from 'react'
 import { useGetMeQuery } from '../../../slices/ApiSlice'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Connect() {
     const { data, error, isLoading, refetch } = useGetMeQuery()
-    const [showDropdown, setShowDropdown] = useState(false);
     const [username, setUsername] = useState()
+    const [role, setRole] = useState('')
+    const isAdmin = role.includes("ROLE_ADMIN")
     const navigate = useNavigate();
 
     useEffect(()=>{
         if (data && data.username) {          
             setUsername(data.username)
+            if (data && data.role) {          
+                setRole(data.role)
+                console.log(role)
+            }
         }
-    }, [data])
+    }, [data, role])
 
-    const handleClick = () => {
-        setShowDropdown(!showDropdown)
-    }
 
     const handleLogin = () => {
         navigate('/login');
@@ -25,6 +27,7 @@ export default function Connect() {
     const handleLogout = () => {
         localStorage.removeItem('jwtToken')
         location.reload()
+        navigate('/')
     }
 
     const handleRegister = () => {
@@ -33,16 +36,16 @@ export default function Connect() {
 
     return(
         <>
-            <button className='Login' onClick={handleClick}>
+            <button className='Login'>
                 <img className='accountIcon' src={account} alt="accountIcon" />
-                <p className='user'>
+                <div className='user'>
                     {
-                        error ? <p>connexion</p> : 
+                        error ? <p>connection</p> : 
                         username
                     }
-                </p>
+                </div>
                 </button>
-                {showDropdown && (
+                
                 <div id='dropdownConnect'>
                     {
                         error ?
@@ -51,11 +54,20 @@ export default function Connect() {
                             <button className='CreateAccount' onClick={handleRegister}>Inscription</button>
                         </>
                         :
-                        <button onClick={handleLogout}>Logout</button>
+                        isAdmin ?
+                        <>
+                            <a href="/Backoffice/hostels">Backoffice</a>
+                            <button onClick={handleLogout}>Logout</button>
+                        </>
+                        :
+                        <>
+                            <a href="/my/booking">vos reservations</a>
+                            <button onClick={handleLogout}>Logout</button>
+                        </>
                         }
                 </div>
 
-                )}
+                
         </>         
     )
 }

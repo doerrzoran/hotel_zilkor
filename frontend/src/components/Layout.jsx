@@ -6,7 +6,7 @@ export default function Layout(props) {
     return(
         <>
             <Header/>
-            <main className="content">
+            <main>
                 {
                     content
                 }

@@ -1,0 +1,31 @@
+.error-message {
+    color: #d32f2f; /* Rouge foncé pour le texte */
+    background-color: #fde7e7; /* Fond rouge clair */
+    border: 1px solid #f5c6cb; /* Bordure rouge pâle */
+    border-radius: 4px; /* Coins arrondis */
+    padding: 10px 15px; /* Espacement intérieur */
+    margin-top: 5px; /* Marge au-dessus */
+    font-size: 14px; /* Taille de police */
+    font-weight: bold; /* Texte en gras */
+    display: block; /* Affichage en bloc */
+    text-align: left; /* Alignement du texte à gauche */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  }
+  
+  /* Icône d'avertissement (optionnel) */
+  .error-message::before {
+    content: "⚠ "; /* Symbole d'avertissement Unicode */
+    margin-right: 5px; /* Espace à droite de l'icône */
+  }
+  
+  /* Animation subtile (optionnel) */
+  @keyframes errorShake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+  }
+  
+  .error-message {
+    animation: errorShake 0.5s ease-in-out;
+  }
